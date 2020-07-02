@@ -9,6 +9,9 @@ export class Pokemon extends Document {
 
     @Prop({ required: true })
     type: string;
+
+    @Prop()
+    boxId: string;
 }
 
 export const PokemonSchema = SchemaFactory.createForClass(Pokemon);

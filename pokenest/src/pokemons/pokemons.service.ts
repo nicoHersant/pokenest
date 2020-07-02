@@ -4,6 +4,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Pokemon } from '../schemas/pokemon.schema';
 import { CreatePokemonDto } from './dto/create-pokemon.dto';
 import { UpdatePokemonDto } from "./dto/update-pokemon.dto";
+import { MovePokemonDto } from "./dto/move-pokemon.dto";
 
 @Injectable()
 export class PokemonsService {
@@ -24,6 +25,10 @@ export class PokemonsService {
 
     async update(id: string, updatePokemonDto: UpdatePokemonDto): Promise<Pokemon> {
         return this.pokemonModel.updateOne({ _id: id }, updatePokemonDto);
+    }
+
+    async movePokemon(id: string, movePokemonDto: MovePokemonDto): Promise<Pokemon> {
+        return this.pokemonModel.updateOne({ _id: id }, movePokemonDto);
     }
 
     async delete(id): Promise<String> {
