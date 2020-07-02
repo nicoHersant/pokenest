@@ -17,7 +17,7 @@ export class BoxsService {
 
     async update(updateBoxDto: UpdateBoxDto): Promise<Box> {
         const updatedBox = new this.boxModel(updateBoxDto);
-        return updatedBox.updateOne();
+        return updatedBox.updateOne(updatedBox);
     }
 
 
