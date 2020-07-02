@@ -30,10 +30,37 @@ export class BoxsService {
         // return this.boxModel.deleteOne({ _id: id }).exec();
         let postdelete = this.boxModel.deleteOne({ _id: id }).exec();
         if ((await postdelete).deletedCount == 1){
-            return `The box with _id : ${id} as been ultimately deleted`;
+            return `The box with _id : ${id} has been ultimately deleted`;
         }
     }
 
-    // async isBoxTypeOk(box:Box, pokemon:Pokemon){    }
+    async isBoxTypeOk(){ 
+        let testbox = {
+            "pokemons": [],
+            "_id": "5efcb7cdb807f82093416687",
+            "boxNumber": 1,
+            "trainer": "nicoh",
+        }
+        let testboxfull = {
+            "pokemons": [],
+            "_id": "5efcb7cdb807f82093416687",
+            "boxNumber": 1,
+            "trainer": "nicoh",
+        }
+        let testpoke = {"_id":"someid", "name":"abra", "type":"psy"}
+        if (this.checkType(testbox)){
+            console.log('type1 is empty')
+        }
+    }
+
+    checkType(obj) {
+        if (obj === undefined || obj.length ==0) return false
+        if (obj.hasOwnProperty("type1") || obj.hasOwnProperty("type2")) return true
+        else return 'not found'
+    }
+
+    isEmpty (obj) {
+        return Object.keys(obj).length === 0;
+    }
 
 }

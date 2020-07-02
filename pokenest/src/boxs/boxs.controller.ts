@@ -13,6 +13,11 @@ export class BoxsController {
     findAll() {
         return this.boxsService.findAll();
     }
+
+    @Get('boxtype')
+    BoxType() {
+        return this.boxsService.isBoxTypeOk();
+    }
     
     @Get(':id')
     findOne(@Param('id') id: string) {
