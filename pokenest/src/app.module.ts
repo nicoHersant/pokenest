@@ -10,7 +10,6 @@ import { PokemonsModule } from './pokemons/pokemons.module';
     BoxsModule, PokemonsModule,
     MongooseModule.forRoot('mongodb+srv://pokenest_user:WECiw8R9Zx3u0Ebx@pokenest.zaykm.mongodb.net/pokenest?retryWrites=true&w=majority')
   ],
-
   controllers: [AppController],
   providers: [AppService],
 })

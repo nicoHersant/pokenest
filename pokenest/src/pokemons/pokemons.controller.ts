@@ -5,15 +5,15 @@ import { Pokemon } from './interfaces/pokemon.interface';
 
 @Controller('pokemons')
 export class PokemonsController {
-    constructor(private pokemonsService: PokemonsService) {}
+    constructor(private readonly pokemonsService: PokemonsService) {}
 
     @Post()
-    async create(@Body() createPokemonDto: CreatePokemonDto) {
+    create(@Body() createPokemonDto: CreatePokemonDto) {
         this.pokemonsService.create(createPokemonDto);
     }
 
     @Get()
-    async findAll(): Promise<Pokemon[]> {
+    findAll() {
         return this.pokemonsService.findAll();
     }
 }
