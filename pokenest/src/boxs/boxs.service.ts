@@ -9,7 +9,7 @@ import { UpdateBoxDto } from './dto/update-box.dto';
 export class BoxsService {
 
     constructor(@InjectModel(Box.name) private boxModel: Model<Box>) { }
-    
+
     async findAll(): Promise<Box[]> {
         return this.boxModel.find().exec();
     }
