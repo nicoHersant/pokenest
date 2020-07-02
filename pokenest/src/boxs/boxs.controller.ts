@@ -18,9 +18,26 @@ export class BoxsController {
     findOne(@Param('id') id: string) {
         return this.boxsService.findOne(id);
     }
+
+    @Get('mybox/:name')
+    numBox(@Param('name') name: string) {
+        return this.boxsService.numBox(name);
+    }
+
+    @Get('mybox/add/:boxId/:pokemonId')
+    addPokemon( @Param('boxId') boxId: string, @Param('pokemonId') pokemonId: string) {
+        console.log(boxId, pokemonId )
+        return this.boxsService.addPokemon(boxId, pokemonId );
+    }
+
+    @Get('mybox/remove/:boxId/:pokemonId')
+    removePokemon( @Param('boxId') boxId: string, @Param('pokemonId') pokemonId: string) {
+        console.log(boxId, pokemonId)
+        return this.boxsService.removePokemon(boxId, pokemonId);
+    }
     
     @Post()
-    create(@Body() createBoxDto: CreateBoxDto) {
+    async create(@Body() createBoxDto: CreateBoxDto) {
         return this.boxsService.create(createBoxDto);
     }
 
