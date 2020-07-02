@@ -9,7 +9,7 @@ import { UpdateBoxDto } from './dto/update-box.dto';
 export class BoxsService {
 
     constructor(@InjectModel(Box.name) private boxModel: Model<Box>) { }
-    
+
     async findAll(): Promise<Box[]> {
         return this.boxModel.find().exec();
     }
@@ -30,7 +30,7 @@ export class BoxsService {
         // return this.boxModel.deleteOne({ _id: id }).exec();
         let postdelete = this.boxModel.deleteOne({ _id: id }).exec();
         if ((await postdelete).deletedCount == 1){
-            return `The box with _id : ${id} as been ultimately deleted`;
+            return `The box with _id : ${id} has been ultimately deleted`;
         }
     }
 
