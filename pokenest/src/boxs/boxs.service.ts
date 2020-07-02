@@ -1,16 +1,27 @@
-
+import { Model } from 'mongoose';
 import { Injectable } from '@nestjs/common';
-import { Box } from './interfaces/box.interface';
+import { InjectModel } from '@nestjs/mongoose';
+import { Box } from '../schemas/box.schema';
+import { CreateBoxDto } from './dto/create-box.dto';
+import { UpdateBoxDto } from './dto/update-box.dto';
 
 @Injectable()
 export class BoxsService {
-    private readonly Boxs: Box[] = [];
 
-    create(Box: Box) {
-        this.Boxs.push(Box);
+    constructor(@InjectModel(Box.name) private boxModel: Model<Box>) { }
+
+    async create(createBoxDto: CreateBoxDto): Promise<Box> {
+        const createdBox = new this.boxModel(createBoxDto);
+        return createdBox.save();
     }
 
-    findAll(): Box[] {
-        return this.Boxs;
+    async update(updateBoxDto: UpdateBoxDto): Promise<Box> {
+        const updatedBox = new this.boxModel(updateBoxDto);
+        return updatedBox.updateOne();
+    }
+
+
+    async findAll(): Promise<Box[]> {
+        return this.boxModel.find().exec();
     }
 }

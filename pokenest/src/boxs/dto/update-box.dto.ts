@@ -1,5 +1,5 @@
 
-export class CreateBoxDto {
+export class UpdateBoxDto {
     trainer: string;
     boxNumber: number;
     type1: string;
