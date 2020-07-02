@@ -18,6 +18,11 @@ export class BoxsController {
     BoxType() {
         return this.boxsService.isBoxTypeOk();
     }
+
+    @Get('mybox/:name')
+    numBox(@Param('name') name: string) {
+        return this.boxsService.numBox(name);
+    }
     
     @Get(':id')
     findOne(@Param('id') id: string) {
@@ -25,7 +30,7 @@ export class BoxsController {
     }
     
     @Post()
-    create(@Body() createBoxDto: CreateBoxDto) {
+    async create(@Body() createBoxDto: CreateBoxDto) {
         return this.boxsService.create(createBoxDto);
     }
 

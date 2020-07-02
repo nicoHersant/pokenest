@@ -6,10 +6,10 @@ import { Document } from 'mongoose';
 export class Box extends Document {
 
     @Prop({ required: true })
-    boxNumber: number;
-
-    @Prop({ required: true })
     trainer: string;
+    
+    @Prop()
+    boxNumber: number;
 
     @Prop()
     type1: string;
