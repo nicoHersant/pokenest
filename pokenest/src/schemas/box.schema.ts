@@ -1,6 +1,7 @@
 
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
+import { Pokemon } from './pokemon.schema';
 
 @Schema()
 export class Box extends Document {
