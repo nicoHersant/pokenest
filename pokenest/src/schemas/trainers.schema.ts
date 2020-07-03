@@ -6,7 +6,7 @@ export class Trainer extends Document{
     @Prop({required: true})
     readonly name: string;
 
-    @Prop({required: true})
+    @Prop({required: false})
     nbBox: number;
 }
 

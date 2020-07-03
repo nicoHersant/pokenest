@@ -1,4 +1,4 @@
-import {Body, Controller, Get, Param, Post, Put} from '@nestjs/common';
+import {Body, Controller, Delete, Get, Param, Post, Put} from '@nestjs/common';
 import {ApiTags} from "@nestjs/swagger";
 import {TrainersService} from "./trainers.service";
 import {CreateTrainerDto} from "./dto/create-trainer.dto";
@@ -15,14 +15,24 @@ export class TrainersController {
         return this.trainersService.findAll();
     }
 
+    @Get(':id')
+    findOne(@Param('id') id: string) {
+        return this.trainersService.findOne(id);
+    }
+
     @Post()
-    create(@Body() createTrainerDto: CreateTrainerDto){
-        this.trainersService.create(createTrainerDto);
+    async create(@Body() createTrainerDto: CreateTrainerDto){
+        return this.trainersService.create(createTrainerDto);
     }
 
     @Put(':id')
     update(@Param('id') id: string, @Body() updateTrainerDto: UpdateTrainerDto) {
         return this.trainersService.update(id, updateTrainerDto);
+    }
+
+    @Delete(':id')
+    remove(@Param('id') id: string) {
+        return this.trainersService.delete(id);
     }
 
 }
