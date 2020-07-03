@@ -2,14 +2,12 @@ import { Model } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Box } from '../schemas/box.schema';
-import { Pokemon } from '../schemas/pokemon.schema';
 import { PokemonsService } from '../pokemons/pokemons.service';
 import { CreateBoxDto } from './dto/create-box.dto';
 import { UpdateBoxDto } from './dto/update-box.dto';
-//  import { UpdatePokemonDto } from '../pokemons/dto/update-pokemon.dto';
 
 @Injectable()
-export class BoxsService {
+export class BoxesService {
 
     constructor(@InjectModel(Box.name) private boxModel: Model<Box>, private pokemonService: PokemonsService) { }
 
@@ -31,10 +29,9 @@ export class BoxsService {
     }
 
     async delete(id): Promise<String> {
-        // return this.boxModel.deleteOne({ _id: id }).exec();
         let postdelete = this.boxModel.deleteOne({ _id: id }).exec();
-        if ((await postdelete).deletedCount == 1){
-            return `The box with _id : ${id} has been ultimately deleted`;
+        if ((await postdelete).deletedCount == 1) {
+            return `The Box with _id : ${id} has been ultimately deleted`;
         }
     }
 
@@ -75,10 +72,9 @@ export class BoxsService {
 
     async removePokemon(boxID: string, pokemonID: string): Promise<Box> {
         const toUpdateBox = await this.findOne(boxID);
-        const toUpdatePokemon = await this.findOne(pokemonID);
         // Remove pokemon from the array of pokemons in the box entity
         toUpdateBox.pokemons.forEach((pokemon, index) => {
-            if(pokemon["_id"] == pokemonID){
+            if(pokemon["_id"] == pokemonID.toString()){
                 toUpdateBox.pokemons.splice(index)
             }
         });
