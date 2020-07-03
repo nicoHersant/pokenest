@@ -33,7 +33,6 @@ export class BoxesController {
 
     @Put('mybox/remove/:boxId/:pokemonId')
     removePokemon( @Param('boxId') boxId: string, @Param('pokemonId') pokemonId: string) {
-        console.log(boxId, pokemonId)
         return this.boxesService.removePokemon(boxId, pokemonId);
     }
 
