@@ -27,7 +27,7 @@ export class PokemonsService {
         return this.pokemonModel.updateOne({ _id: id }, updatePokemonDto);
     }
 
-    async movePokemon(id: string, movePokemonDto: MovePokemonDto): Promise<Pokemon> {
+    async updateBox(id: string, movePokemonDto: MovePokemonDto): Promise<Pokemon> {
         return this.pokemonModel.updateOne({ _id: id }, movePokemonDto);
     }
 

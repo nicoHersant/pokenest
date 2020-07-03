@@ -26,7 +26,6 @@ export class BoxsController {
 
     @Get('mybox/add/:boxId/:pokemonId')
     addPokemon( @Param('boxId') boxId: string, @Param('pokemonId') pokemonId: string) {
-        console.log(boxId, pokemonId )
         return this.boxsService.addPokemon(boxId, pokemonId );
     }
 

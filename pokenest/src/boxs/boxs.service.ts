@@ -12,7 +12,7 @@ import { UpdateBoxDto } from './dto/update-box.dto';
 export class BoxsService {
 
     constructor(@InjectModel(Box.name) private boxModel: Model<Box>, private pokemonService: PokemonsService) { }
-    
+
     async findAll(): Promise<Box[]> {
         return this.boxModel.find().exec();
     }
@@ -46,27 +46,44 @@ export class BoxsService {
     async addPokemon(boxID: string, pokemonID: string): Promise<Box>{
         const toUpdateBox = await this.findOne(boxID);
         const toUpdatePokemon = await this.pokemonService.findOne(pokemonID);
-        let notHere:boolean = await this.notInBox(toUpdateBox, toUpdatePokemon)
+        let notHere = await this.notInBox(toUpdateBox, toUpdatePokemon)
         if ((toUpdateBox.pokemons.length < 24) && notHere ) {
-            if (this.setBoxType(toUpdateBox, toUpdatePokemon) ){
+            if ( await this.setBoxType(toUpdateBox, toUpdatePokemon) == true ){
+                // Add pokemon to the array of pokemons in the box entity
                 toUpdateBox.pokemons.push(toUpdatePokemon) ;
-                // TODO : update pokemon's box propertie
+                // Add the id of box in the pokemon entity
+                await this.pokemonService.updateBox(pokemonID, { boxId: boxID });
                 return this.boxModel.updateOne({ _id: toUpdateBox._id }, toUpdateBox);
             } else {
-                console.log("Sorry, the box is full, please choose anotherone.");
+                console.log(`Sorry, the box is only for types ${toUpdateBox.type1} and ${toUpdateBox.type2}`);
             }
         }
+        if ( !notHere ){
+            console.log("Sorry, the pokemon is allready in the box or the box is full."); 
+        }
+    }
+
+    async notInBox(box, poke) {
+        let res = true
+        box.pokemons.forEach(element => {
+            if (element._id.toString() === poke._id.toString() ) {
+                res = false
+            }
+        });
+        return res
     }
 
     async removePokemon(boxID: string, pokemonID: string): Promise<Box> {
         const toUpdateBox = await this.findOne(boxID);
-        const toUpdatePokemon = await this.pokemonService.findOne(pokemonID);
-        // TODO : update pokemon's box propertie
+        const toUpdatePokemon = await this.findOne(pokemonID);
+        // Remove pokemon from the array of pokemons in the box entity
         toUpdateBox.pokemons.forEach((pokemon, index) => {
             if(pokemon["_id"] == pokemonID){
                 toUpdateBox.pokemons.splice(index)
             }
-        })
+        });
+        // Empty the field boxId in the pokemon entity
+        await this.pokemonService.updateBox(pokemonID, {boxId: ""});
         return this.boxModel.updateOne({ _id: toUpdateBox._id }, toUpdateBox);
     }
 
@@ -82,24 +99,14 @@ export class BoxsService {
             box.type2 = poke.type
             this.boxModel.updateOne({ _id: box._id }, box);
             return true
-        } 
-        if ( box.hasOwnProperty("type1") && box.type1 == poke.type ){ return true }
-        if ( box.hasOwnProperty("type2") && box.type2 == poke.type) { return true }
-        if ( box.hasOwnProperty("type1") && box.type1 != poke.type && box.hasOwnProperty("type2") && box.type2 != poke.type) { return false }
-    }
-
-    notInBox(box, poke): boolean{
-        box.pokemons.forEach(element => {
-            if (element._id === poke._id){
-                return false
-            }
-        });
-        return true
+        }
+        if ( box.type1 != undefined && box.type1 == poke.type ){ return true }
+        if ( box.type2 != undefined && box.type2 == poke.type) { return true }
+        if ( box.type1 !== poke.type && box.type2 !== poke.type) { return false }
     }
 
     isEmpty (obj) {
         return Object.keys(obj).length === 0
     }
-
 
 }
