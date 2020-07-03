@@ -1,6 +1,7 @@
-import {Body, Controller, Get, Post} from '@nestjs/common';
+import {Body, Controller, Get, Param, Post, Put} from '@nestjs/common';
 import {TrainersService} from "./trainers.service";
 import {CreateTrainerDto} from "./dto/create-trainer.dto";
+import {UpdateTrainerDto} from "./dto/update-trainer.dto";
 
 @Controller('trainers')
 export class TrainersController {
@@ -16,4 +17,10 @@ export class TrainersController {
     create(@Body() createTrainerDto: CreateTrainerDto){
         this.trainersService.create(createTrainerDto);
     }
+
+    @Put(':id')
+    update(@Param('id') id: string, @Body() updateTrainerDto: UpdateTrainerDto) {
+        return this.trainersService.update(id, updateTrainerDto);
+    }
+
 }
