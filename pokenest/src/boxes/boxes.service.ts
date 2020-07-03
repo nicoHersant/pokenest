@@ -19,7 +19,7 @@ export class BoxesService {
     }
 
     async create(createBoxDto: CreateBoxDto): Promise<Box> {
-        createBoxDto.boxNumber = await this.numBox(createBoxDto.trainer);
+        createBoxDto.boxNumber = (await this.numBox(createBoxDto.trainer)).length;
         const createdBox = new this.boxModel(createBoxDto);
         return createdBox.save();
     }
@@ -36,8 +36,7 @@ export class BoxesService {
     }
 
     async numBox(name){
-        let boxes = this.boxModel.find({ trainer: name}).exec();
-        return (await boxes).length;
+        return this.boxModel.find({ trainer: name}).exec();
     }
 
     async addPokemon(boxID: string, pokemonID: string): Promise<Box>{

@@ -22,6 +22,10 @@ export class CreateBoxDto {
     type2: string;
 
     @ApiProperty({
+        type: 'array',
+        items: {
+            type: 'string'
+        },
         description: 'Array of pokemon that are stored in the box'
     })
     pokemons: Array<{}>;
