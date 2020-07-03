@@ -4,7 +4,7 @@ import {Document} from "mongoose";
 @Schema()
 export class Trainer extends Document{
     @Prop({required: true})
-    name: string;
+    readonly name: string;
 
     @Prop({required: true})
     nbBox: number;

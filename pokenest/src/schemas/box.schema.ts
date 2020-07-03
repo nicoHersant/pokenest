@@ -7,10 +7,10 @@ import { Pokemon } from './pokemon.schema';
 export class Box extends Document {
 
     @Prop({ required: true })
-    trainer: string;
+    readonly trainer: string;
     
     @Prop()
-    boxNumber: number;
+    readonly boxNumber: number;
 
     @Prop()
     type1: string;
