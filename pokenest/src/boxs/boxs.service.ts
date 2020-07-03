@@ -39,7 +39,7 @@ export class BoxsService {
     }
 
     async numBox(name){
-        let boxes = this.boxModel.find({trainer:"nicoh"}).exec();
+        let boxes = this.boxModel.find({ trainer: name}).exec();
         return (await boxes).length;
     }
 
@@ -67,11 +67,8 @@ export class BoxsService {
     async removePokemon(boxID: string, pokemonID: string): Promise<Box> {
         const toUpdateBox = await this.findOne(boxID);
         const toUpdatePokemon = await this.pokemonService.findOne(pokemonID);
-        // toUpdateBox.pokemons.slice(toUpdatePokemon);
         // TODO : update pokemon's box propertie
-        console.log(toUpdateBox.pokemons)
         toUpdateBox.pokemons.forEach((pokemon, index) => {
-            console.log(pokemon)
             if(pokemon["_id"] == pokemonID){
                 toUpdateBox.pokemons.splice(index)
             }
@@ -82,7 +79,7 @@ export class BoxsService {
     checkType(obj) {
         if (obj === undefined || obj.length ==0) return false
         if (obj.hasOwnProperty("type1") || obj.hasOwnProperty("type2")) return true
-        else return 'not found'
+        else return 'Box has no type'
     }
 
     isEmpty (obj) {
