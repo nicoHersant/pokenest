@@ -43,6 +43,7 @@ export class BoxsService {
         return (await boxes).length;
     }
 
+
     async isBoxTypeOk(){
         let testbox = "1";
         let testboxfull = "2";
@@ -86,14 +87,26 @@ export class BoxsService {
         return this.boxModel.updateOne({ _id: toUpdateBox._id }, toUpdateBox);
     }
 
-    checkType(obj) {
-        if (obj === undefined || obj.length ==0) return false
-        if (obj.hasOwnProperty("type1") || obj.hasOwnProperty("type2")) return true
-        else return 'Box has no type'
+    async setBoxType(boxID: string, pokemonID: string) {
+        let box = await this.findOne(boxID)
+        let poke = await this.pokemonService.findOne(pokemonID)
+        if ( box.type1 === undefined ){
+            box.type1 = poke.type
+            this.boxModel.updateOne({ _id: boxID }, box);
+            return true
+        }
+        if (box.type1 != undefined && box.type2 === undefined) {
+            box.type2 = poke.type
+            this.boxModel.updateOne({ _id: boxID }, box);
+            return true
+        }
+        if ( box.hasOwnProperty("type1") && box.type1 == poke.type ){ return true }
+        if ( box.hasOwnProperty("type2") && box.type2 == poke.type) { return true }
+        if ( box.hasOwnProperty("type1") && box.type1 != poke.type && box.hasOwnProperty("type2") && box.type2 != poke.type) { return false }
     }
 
     isEmpty (obj) {
-        return Object.keys(obj).length === 0;
+        return Object.keys(obj).length === 0
     }
 
 }

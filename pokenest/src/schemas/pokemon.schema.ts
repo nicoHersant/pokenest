@@ -5,10 +5,10 @@ import { Document } from 'mongoose';
 export class Pokemon extends Document {
 
     @Prop({ required: true })
-    name: string;
+    readonly name: string;
 
     @Prop({ required: true })
-    type: string;
+    readonly type: string;
 
     @Prop()
     boxId: string;
