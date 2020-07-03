@@ -46,12 +46,15 @@ export class BoxsService {
     async addPokemon(boxID: string, pokemonID: string): Promise<Box>{
         const toUpdateBox = await this.findOne(boxID);
         const toUpdatePokemon = await this.pokemonService.findOne(pokemonID);
-        if (await this.numBox( toUpdateBox.trainer) < 24) {
-            toUpdateBox.pokemons.push(toUpdatePokemon) ;
-            // TODO : update pokemon's box propertie
-            return this.boxModel.updateOne({ _id: toUpdateBox._id }, toUpdateBox);
-        } else {
-            console.log("Sorry, the box is full, please choose anotherone.");
+        let notHere:boolean = await this.notInBox(toUpdateBox, toUpdatePokemon)
+        if ((toUpdateBox.pokemons.length < 24) && notHere ) {
+            if (this.setBoxType(toUpdateBox, toUpdatePokemon) ){
+                toUpdateBox.pokemons.push(toUpdatePokemon) ;
+                // TODO : update pokemon's box propertie
+                return this.boxModel.updateOne({ _id: toUpdateBox._id }, toUpdateBox);
+            } else {
+                console.log("Sorry, the box is full, please choose anotherone.");
+            }
         }
     }
 
@@ -67,17 +70,17 @@ export class BoxsService {
         return this.boxModel.updateOne({ _id: toUpdateBox._id }, toUpdateBox);
     }
 
-    async setBoxType(boxID: string, pokemonID: string) {
-        let box = await this.findOne(boxID)
-        let poke = await this.pokemonService.findOne(pokemonID)
+    async setBoxType(box, poke) {
         if ( box.type1 === undefined ){
             box.type1 = poke.type
-            this.boxModel.updateOne({ _id: boxID }, box);
+            this.boxModel.updateOne({ _id: box._id }, box);
             return true
         } 
-        if (box.type1 != undefined && box.type2 === undefined) {
+        if (box.type1 != undefined && box.type1 == poke.type ) {
+            return true
+        }else if(box.type1 != undefined && box.type2 === undefined) {
             box.type2 = poke.type
-            this.boxModel.updateOne({ _id: boxID }, box);
+            this.boxModel.updateOne({ _id: box._id }, box);
             return true
         } 
         if ( box.hasOwnProperty("type1") && box.type1 == poke.type ){ return true }
@@ -85,8 +88,18 @@ export class BoxsService {
         if ( box.hasOwnProperty("type1") && box.type1 != poke.type && box.hasOwnProperty("type2") && box.type2 != poke.type) { return false }
     }
 
+    notInBox(box, poke): boolean{
+        box.pokemons.forEach(element => {
+            if (element._id === poke._id){
+                return false
+            }
+        });
+        return true
+    }
+
     isEmpty (obj) {
         return Object.keys(obj).length === 0
     }
+
 
 }
