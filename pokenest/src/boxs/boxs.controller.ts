@@ -1,19 +1,21 @@
 import { Controller, Get, Query, Post, Body, Put, Param, Delete } from '@nestjs/common';
+import {ApiTags} from "@nestjs/swagger";
 import { CreateBoxDto } from './dto/create-box.dto';
 import { UpdateBoxDto } from './dto/update-box.dto';
 import { BoxsService } from './boxs.service';
 
+@ApiTags('Boxes')
 @Controller('boxs')
 export class BoxsController {
     constructor(
         private readonly boxsService: BoxsService
     ) { }
-    
+
     @Get()
     findAll() {
         return this.boxsService.findAll();
     }
-    
+
     @Get(':id')
     findOne(@Param('id') id: string) {
         return this.boxsService.findOne(id);
@@ -35,7 +37,7 @@ export class BoxsController {
         console.log(boxId, pokemonId)
         return this.boxsService.removePokemon(boxId, pokemonId);
     }
-    
+
     @Post()
     async create(@Body() createBoxDto: CreateBoxDto) {
         return this.boxsService.create(createBoxDto);

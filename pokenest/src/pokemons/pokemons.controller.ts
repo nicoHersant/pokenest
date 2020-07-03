@@ -1,9 +1,11 @@
 import { Controller, Get, Query, Post, Body, Put, Param, Delete } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { CreatePokemonDto, } from './dto/create-pokemon.dto';
 import { UpdatePokemonDto } from "./dto/update-pokemon.dto";
 import { MovePokemonDto } from "./dto/move-pokemon.dto";
 import { PokemonsService } from './pokemons.service';
 
+@ApiTags('Pokemons')
 @Controller('pokemons')
 export class PokemonsController {
     constructor(private readonly pokemonsService: PokemonsService) {}

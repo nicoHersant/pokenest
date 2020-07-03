@@ -1,8 +1,10 @@
 import {Body, Controller, Get, Param, Post, Put} from '@nestjs/common';
+import {ApiTags} from "@nestjs/swagger";
 import {TrainersService} from "./trainers.service";
 import {CreateTrainerDto} from "./dto/create-trainer.dto";
 import {UpdateTrainerDto} from "./dto/update-trainer.dto";
 
+@ApiTags('Trainers')
 @Controller('trainers')
 export class TrainersController {
 
