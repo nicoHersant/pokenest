@@ -3,6 +3,7 @@ import {CreateTrainerDto} from "./dto/create-trainer.dto";
 import {Model} from "mongoose";
 import {InjectModel} from "@nestjs/mongoose";
 import {Trainer} from "../schemas/trainers.schema";
+import {UpdateTrainerDto} from "./dto/update-trainer.dto";
 
 @Injectable()
 export class TrainersService {
@@ -15,5 +16,9 @@ export class TrainersService {
 
     async findAll(): Promise<Trainer[]>{
         return this.findAll();
+    }
+
+    async update(id: string, updateTrainerDto: UpdateTrainerDto): Promise<Trainer> {
+        return this.trainerModel.updateOne({ _id: id }, updateTrainerDto);
     }
 }
