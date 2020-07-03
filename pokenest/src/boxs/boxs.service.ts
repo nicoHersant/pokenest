@@ -12,7 +12,7 @@ import { UpdateBoxDto } from './dto/update-box.dto';
 export class BoxsService {
 
     constructor(@InjectModel(Box.name) private boxModel: Model<Box>, private pokemonService: PokemonsService) { }
-    
+
     async findAll(): Promise<Box[]> {
         return this.boxModel.find().exec();
     }
@@ -43,7 +43,7 @@ export class BoxsService {
         return (await boxes).length;
     }
 
-    async isBoxTypeOk(){ 
+    async isBoxTypeOk(){
         let testbox = "1";
         let testboxfull = "2";
         let testpoke = "1";
@@ -56,23 +56,33 @@ export class BoxsService {
         const toUpdateBox = await this.findOne(boxID);
         const toUpdatePokemon = await this.pokemonService.findOne(pokemonID);
         if (await this.numBox( toUpdateBox.trainer) < 24) {
+
+            // Add pokemon to the array of pokemons in the box entity
             toUpdateBox.pokemons.push(toUpdatePokemon) ;
-            // TODO : update pokemon's box propertie
+
+            // Add the id of box in the pokemon entity
+            await this.pokemonService.updateBox(pokemonID, {boxId: boxID});
+
             return this.boxModel.updateOne({ _id: toUpdateBox._id }, toUpdateBox);
         } else {
-            console.log("Sorry, the box is full, please choose anotherone.");
+            console.log("Sorry, the box is full, please choose another one.");
         }
     }
 
     async removePokemon(boxID: string, pokemonID: string): Promise<Box> {
         const toUpdateBox = await this.findOne(boxID);
         const toUpdatePokemon = await this.pokemonService.findOne(pokemonID);
-        // TODO : update pokemon's box propertie
+
+        // Remove pokemon from the array of pokemons in the box entity
         toUpdateBox.pokemons.forEach((pokemon, index) => {
             if(pokemon["_id"] == pokemonID){
                 toUpdateBox.pokemons.splice(index)
             }
-        })
+        });
+
+        // Empty the field boxId in the pokemon entity
+        await this.pokemonService.updateBox(pokemonID, {boxId: ""});
+
         return this.boxModel.updateOne({ _id: toUpdateBox._id }, toUpdateBox);
     }
 

@@ -26,10 +26,10 @@ export class PokemonsController {
     update(@Param('id') id: string, @Body() updatePokemonDto: UpdatePokemonDto) {
         return this.pokemonsService.update(id, updatePokemonDto);
     }
-    @Put(':id/move')
-    movePokemon(@Param('id') id: string, @Body() movePokemonDto: MovePokemonDto) {
-        return this.pokemonsService.movePokemon(id, movePokemonDto);
-    }
+    // @Put(':id/move')
+    // movePokemon(@Param('id') id: string, @Body() movePokemonDto: MovePokemonDto) {
+    //     return this.pokemonsService.addBox(id, movePokemonDto);
+    // }
 
 
     @Delete(':id')
