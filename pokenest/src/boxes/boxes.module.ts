@@ -1,7 +1,7 @@
 
 import { Module, Global } from '@nestjs/common';
-import { BoxsController } from './boxs.controller';
-import { BoxsService } from './boxs.service';
+import { BoxesController } from './boxes.controller';
+import { BoxesService } from './boxes.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Box, BoxSchema } from '../schemas/box.schema';
 import { PokemonsModule } from '../pokemons/pokemons.module';
@@ -10,9 +10,9 @@ import { PokemonsModule } from '../pokemons/pokemons.module';
     imports: [ PokemonsModule,
         MongooseModule.forFeature([{ name: Box.name, schema: BoxSchema }])
     ],
-    controllers: [BoxsController],
-    providers: [BoxsService],
+    controllers: [BoxesController],
+    providers: [BoxesService],
 })
-export class BoxsModule { 
-    constructor(private boxsService: BoxsService) {}
+export class BoxesModule { 
+    constructor(private boxesService: BoxesService) {}
 }
