@@ -101,8 +101,7 @@ export class BoxesService {
             box.save()
             return true
         }
-        if ( box.type1 == poke.type ){ return true }
-        if ( box.type2 == poke.type) { return true }
+        if (box.type1 == poke.type || box.type2 == poke.type){ return true }
         if ( box.type1 !== poke.type && box.type2 !== poke.type) { return false }
     }
 
