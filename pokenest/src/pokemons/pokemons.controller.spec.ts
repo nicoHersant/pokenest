@@ -40,12 +40,12 @@ describe('PokemonsController', () => {
         it('should return a new pokemon', async () => {
             const result = [{
                         "name": "test",
-                        "type": "test"
+                        "types": ["test"]
                     }];
             (pokemonsService.create as any).mockResolvedValue(result);
             expect(await pokemonsController.create({
                 "name": "test",
-                "type": "test"
+                "types": ["test"]
             })).toBe(result);
         });
     });
@@ -56,7 +56,7 @@ describe('PokemonsController', () => {
             (pokemonsService.update as any).mockResolvedValue(result);
             expect(await pokemonsController.update('test',{
                 "name": "test",
-                "type": "test",
+                "types": ["test"]
             })).toBe(result);
         });
     });

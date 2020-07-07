@@ -50,7 +50,7 @@ export class BoxesService {
         const toUpdatePokemon = await this.pokemonService.findOne(pokemonID);
         let notHere = await this.notInBox(toUpdateBox, toUpdatePokemon)
         if ((toUpdateBox.pokemons.length < 24) && notHere ) {
-            if ( await this.setBoxType(toUpdateBox, toUpdatePokemon) == true ){
+            if (await this.setBoxType(toUpdateBox, toUpdatePokemon.types[0]) == true && await this.setBoxType(toUpdateBox, toUpdatePokemon.types[1]) == true){
                 // Add pokemon to the array of pokemons in the box entity
                 toUpdateBox.pokemons.push(toUpdatePokemon) ;
                 // Add the id of box in the pokemon entity
@@ -90,21 +90,21 @@ export class BoxesService {
         return this.boxModel.update({ _id: toUpdateBox._id }, toUpdateBox);
     }
 
-    async setBoxType(box: Box, poke: Pokemon) {
+    async setBoxType(box: Box, poketype) {
         if ( box.type1 === undefined ){
-            box.type1 = poke.type
+            box.type1 = poketype
             box.save()
             return true
         }
-        if (box.type1 != undefined && box.type1 == poke.type ) {
+        if (box.type1 != undefined && box.type1 == poketype ) {
             return true
         }else if(box.type2 === undefined) {
-            box.type2 = poke.type
+            box.type2 = poketype
             box.save()
             return true
         }
-        if (box.type1 == poke.type || box.type2 == poke.type){ return true }
-        if ( box.type1 !== poke.type && box.type2 !== poke.type) { return false }
+        if (box.type1 == poketype || box.type2 == poketype){ return true }
+        if ( box.type1 !== poketype && box.type2 !== poketype) { return false }
     }
 
     async cleanType(box: Box): Promise<Box>{

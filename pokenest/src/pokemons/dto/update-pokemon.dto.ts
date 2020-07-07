@@ -9,5 +9,5 @@ export class UpdatePokemonDto {
     @ApiProperty({
         description: 'Type of pokemon'
     })
-    type: string;
+    types: Array<{}>;
 }

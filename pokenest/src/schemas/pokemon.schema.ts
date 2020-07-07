@@ -8,7 +8,7 @@ export class Pokemon extends Document {
     readonly name: string;
 
     @Prop({ required: true })
-    readonly type: string;
+    readonly types: Array<{}>;
 
     @Prop()
     readonly boxId: string;
