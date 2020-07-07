@@ -11,7 +11,7 @@ import { UpdateBoxDto } from './dto/update-box.dto';
 export class BoxesService {
 
     constructor(
-        @InjectModel(Box.name) private boxModel: Model<Box>, 
+        @InjectModel(Box.name) private boxModel: Model<Box>,
         @Inject(forwardRef(() => PokemonsService)) private pokemonService: PokemonsService
     ) { }
 
@@ -61,7 +61,7 @@ export class BoxesService {
             }
         }
         if ( !notHere ){
-            console.log("Sorry, the pokemon is allready in the box or the box is full."); 
+            console.log("Sorry, the pokemon is allready in the box or the box is full.");
         }
     }
 
@@ -95,7 +95,7 @@ export class BoxesService {
             box.type1 = poke.type
             box.save()
             return true
-        } 
+        }
         if (box.type1 != undefined && box.type1 == poke.type ) {
             return true
         }else if(box.type2 === undefined) {
