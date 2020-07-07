@@ -21,17 +21,17 @@ export class PokemonsController {
 
     @Post()
     create(@Body() createPokemonDto: CreatePokemonDto) {
-        this.pokemonsService.create(createPokemonDto);
+        return this.pokemonsService.create(createPokemonDto);
     }
 
     @Put(':id')
     update(@Param('id') id: string, @Body() updatePokemonDto: UpdatePokemonDto) {
         return this.pokemonsService.update(id, updatePokemonDto);
     }
-    // @Put(':id/move')
-    // movePokemon(@Param('id') id: string, @Body() movePokemonDto: MovePokemonDto) {
-    //     return this.pokemonsService.addBox(id, movePokemonDto);
-    // }
+    @Put(':id/move')
+    updateBox(@Param('id') id: string, @Body() movePokemonDto: MovePokemonDto) {
+        return this.pokemonsService.updateBox(id, movePokemonDto);
+    }
 
 
     @Delete(':id')

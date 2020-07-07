@@ -1,15 +1,12 @@
 import { PokemonsController } from './pokemons.controller';
 import {PokemonsService} from "./pokemons.service";
-import { Model } from 'mongoose';
-import { Pokemon } from '../schemas/pokemon.schema';
 
 describe('PokemonsController', () => {
     let pokemonsController: PokemonsController;
     let pokemonsService: PokemonsService;
-    let pokemonModel: Model<Pokemon>;
 
     beforeEach(() => {
-        pokemonsService = { findAll: jest.fn(), findOne: jest.fn(), create: jest.fn() } as any;
+        pokemonsService = { findAll: jest.fn(), findOne: jest.fn(), create: jest.fn(), update: jest.fn(), updateBox: jest.fn(), delete: jest.fn() } as any;
         pokemonsController = new PokemonsController(pokemonsService);
     });
 
@@ -40,7 +37,7 @@ describe('PokemonsController', () => {
     });
 
     describe('create', () => {
-        it('should return a pokemon', async () => {
+        it('should return a new pokemon', async () => {
             const result =
                 [
                     {
@@ -48,13 +45,40 @@ describe('PokemonsController', () => {
                         "type": "test"
                     }
                 ];
-
             (pokemonsService.create as any).mockResolvedValue(result);
-
             expect(await pokemonsController.create({
                 "name": "test",
                 "type": "test"
             })).toBe(result);
+        });
+    });
+
+    describe('update', () => {
+        it('should return an updated pokemon', async () => {
+            const result = [{ "id": "test" }];
+            (pokemonsService.update as any).mockResolvedValue(result);
+            expect(await pokemonsController.update('test',{
+                "name": "test",
+                "type": "test",
+            })).toBe(result);
+        });
+    });
+
+    describe('updateBox', () => {
+        it('should return an updated pokemon', async () => {
+            const result = [{ "id": "test" }];
+            (pokemonsService.updateBox as any).mockResolvedValue(result);
+            expect(await pokemonsController.updateBox('test',{
+                "boxId": "test",
+            })).toBe(result);
+        });
+    });
+
+    describe('remove', () => {
+        it('should return the deleted pokemon', async () => {
+            const result = [{ "id": "test" }];
+            (pokemonsService.delete as any).mockResolvedValue(result);
+            expect(await pokemonsController.remove('test')).toBe(result);
         });
     });
 });
