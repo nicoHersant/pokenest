@@ -33,7 +33,6 @@ export class PokemonsController {
         return this.pokemonsService.updateBox(id, movePokemonDto);
     }
 
-
     @Delete(':id')
     remove(@Param('id') id: string) {
         return this.pokemonsService.delete(id);

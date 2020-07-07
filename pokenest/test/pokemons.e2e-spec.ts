@@ -6,7 +6,7 @@ import {PokemonsController} from "../src/pokemons/pokemons.controller";
 
 describe('Pokemons', () => {
    let app: INestApplication;
-   let pokemonsService = { findAll: () => ['test'] };
+   let pokemonsService = { findAll: () => ['test'], findOne: () => ['id'], create: () => ["test"], update: () => ["id"], updateBox: () => ["id"], delete: () => ["id"] };
 
    beforeAll(async () => {
        const moduleRef = await Test.createTestingModule({
@@ -30,4 +30,39 @@ describe('Pokemons', () => {
             .expect(200)
             .expect( pokemonsService.findAll() );
    });
+
+    it(`/GET /pokemons/id`, () => {
+        return request(app.getHttpServer())
+            .get('/pokemons/id')
+            .expect(200)
+            .expect(pokemonsService.findOne());
+    });
+
+    it(`/POST /pokemons`, () => {
+        return request(app.getHttpServer())
+            .post('/pokemons')
+            .expect(201)
+            .expect(pokemonsService.create());
+    });
+
+    it(`/PUT /pokemons/id`, () => {
+        return request(app.getHttpServer())
+            .put('/pokemons/id')
+            .expect(200)
+            .expect(pokemonsService.update());
+    });
+
+    it(`/PUT /pokemons/id/move`, () => {
+        return request(app.getHttpServer())
+            .put('/pokemons/id/move')
+            .expect(200)
+            .expect(pokemonsService.updateBox());
+    });
+
+    it(`/DELETE /pokemons/id`, () => {
+        return request(app.getHttpServer())
+            .delete('/pokemons/id')
+            .expect(200)
+            .expect(pokemonsService.delete());
+    });
 });
