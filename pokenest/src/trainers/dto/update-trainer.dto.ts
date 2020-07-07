@@ -9,5 +9,10 @@ export class UpdateTrainerDto {
     @ApiProperty({
         description: 'The number of boxes owned by the trainer'
     })
-    nbBox: number;
+    boxNumber: number;
+
+    @ApiProperty({
+        description: 'Array of boxes linked to the trainer'
+    })
+    boxes: Array<{}>;
 }

@@ -36,7 +36,7 @@ describe('TrainersController', () => {
         it('should return a created trainer', async () => {
             const result = [{"name": "test"}];
             (await trainersService.create as any).mockResolvedValue(result);
-            expect(await trainersController.create({"name":"test", nbBox:0})).toBe(result);
+            expect(await trainersController.create({"name":"test", boxNumber:0})).toBe(result);
         });
     });
 
@@ -45,7 +45,7 @@ describe('TrainersController', () => {
             const result = [{"_id":"5eff04c58910a64424bf4359"}];
             (await trainersService.update as any).mockResolvedValue(result);
             expect(await trainersController.update("5eff04c58910a64424bf4359",
-                {"name":"nicoh", nbBox:0})).toBe(result);
+                {"name":"nicoh", boxNumber:0})).toBe(result);
         });
     });
 
@@ -56,5 +56,5 @@ describe('TrainersController', () => {
             expect(await trainersController.remove("5eff04c58910a64424bf4359")).toBe(result);
         });
     })
-    
+
 });

@@ -34,7 +34,7 @@ describe('TrainersService', () =>{
         it('should return a created trainer', async () =>{
             const result = [{"name": "test"}];
             (trainersModel.create as any).mockResolvedValue(result);
-            expect(await trainersService.create({"name": "test", nbBox:0})).toBe(result);
+            expect(await trainersService.create({"name": "test", boxNumber:0, "boxes": [{}]})).toBe(result);
         });
     });
 
@@ -43,7 +43,7 @@ describe('TrainersService', () =>{
             const result = [{"_id":"5eff04c58910a64424bf4359"}];
             (trainersModel.update as any).mockResolvedValue(result);
             expect(await trainersService.update("5eff04c58910a64424bf4359",
-                {"name":"nicoh", nbBox:0})).toBe(result);
+                {"name":"nicoh", boxNumber:0, "boxes": [{}]})).toBe(result);
         });
     });
 
