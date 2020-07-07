@@ -15,14 +15,15 @@ describe('BoxesController', () => {
     let pokemonService: PokemonsService;
 
     beforeEach(() => {
-        pokemonService = new PokemonsService(pokemonModel);
-        boxesService = new BoxesService(boxModel, pokemonService);
+        pokemonService = { findAll: jest.fn() } as any
+        boxesService = { findAll: jest.fn()} as any
         boxesController = new BoxesController(boxesService);
     });
 
     describe('findAll', () => {
         it('should return an array of boxes', async () => {
             const result = ['test'];
+            ( boxesService.findAll as any).mockResolveValue(result)
             jest.spyOn(boxesService, 'findAll').mockImplementation(() => result);
 
             expect(await boxesController.findAll()).toBe(result);
