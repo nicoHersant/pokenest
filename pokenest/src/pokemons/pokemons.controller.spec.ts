@@ -1,4 +1,3 @@
-import { Test } from '@nestjs/testing';
 import { PokemonsController } from './pokemons.controller';
 import {PokemonsService} from "./pokemons.service";
 import { Model } from 'mongoose';
@@ -10,24 +9,18 @@ describe('PokemonsController', () => {
     let pokemonModel: Model<Pokemon>;
 
     beforeEach(() => {
-        pokemonsService = new PokemonsService(pokemonModel);
+        pokemonsService = { findAll: jest.fn() } as any;
         pokemonsController = new PokemonsController(pokemonsService);
     });
 
     describe('findAll', () => {
         it('should return an array of pokemons', async () => {
-            const result: Promise<Pokemon[]> = new Promise<Pokemon[]>(() =>
+            const result =
                 [
-                    {pokemonModel}
-                    // {
-                    //     "name": "pokemon1", "type": "type1"
-                    // },
-                    // {
-                    //     "name": "pokemon2", "type": "type2"
-                    // }
-                ]
-            );
-            jest.spyOn(pokemonsService, 'findAll').mockImplementation(() => result);
+                    "toto"
+                ];
+
+            (pokemonsService.findAll as any).mockResolvedValue(result);
 
             expect(await pokemonsController.findAll()).toBe(result);
         });
