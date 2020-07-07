@@ -16,7 +16,7 @@ export class BoxesService {
     ) { }
 
     async findAll(): Promise<Box[]> {
-        return this.boxModel.find().exec();
+        return this.boxModel.find();
     }
     async findOne(id): Promise<Box> {
         return this.boxModel.findById(id).exec();

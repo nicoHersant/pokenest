@@ -2,10 +2,6 @@
 import { BoxesController } from './boxes.controller';
 import { BoxesService } from './boxes.service';
 import { PokemonsService } from '../pokemons/pokemons.service';
-import { identity } from 'rxjs';
-//import { Model } from 'mongoose';
-//import { Box } from '../schemas/box.schema';
-//import { Pokemon } from '../schemas/pokemon.schema';
 
 function getRandomInt(max) {
     return Math.floor(Math.random() * Math.floor(max));
@@ -15,8 +11,6 @@ describe('BoxesController', () => {
     let boxesController: BoxesController;
     let boxesService: BoxesService;
     let pokemonService: PokemonsService;
-    //let boxModel: Model < Box >;
-    //let pokemonModel: Model<Pokemon>;
 
     beforeEach(() => {
         pokemonService = { findAll: jest.fn() } as any
@@ -41,7 +35,7 @@ describe('BoxesController', () => {
     });
 
     describe('delete', () => {
-        it('should return a boxe', async () => {
+        it('should return a string containing deleted box ID', async () => {
             const result = [{ "_id": "5eff37917ecb9c7a422f0801" }];
             (await boxesService.delete as any).mockResolvedValue(result)
             expect(await boxesController.remove('5eff37917ecb9c7a422f0801')).toBe(result);
