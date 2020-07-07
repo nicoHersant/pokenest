@@ -10,24 +10,23 @@ export class TrainersService {
     constructor(@InjectModel(Trainer.name) private trainerModel: Model<Trainer>){}
 
     async create( createTrainerDto: CreateTrainerDto): Promise<Trainer>{
-        const createdTrainer = new this.trainerModel(createTrainerDto);
-        return createdTrainer.save();
+        return this.trainerModel.create(createTrainerDto);
     }
 
     async findAll(): Promise<Trainer[]>{
-        return this.trainerModel.find().exec();
+        return this.trainerModel.find();
     }
 
     async findOne(id): Promise<Trainer> {
-        return this.trainerModel.findById(id).exec();
+        return this.trainerModel.findOne(id);
     }
 
     async update(id: string, updateTrainerDto: UpdateTrainerDto): Promise<Trainer> {
-        return this.trainerModel.updateOne({ _id: id }, updateTrainerDto);
+        return this.trainerModel.update({ _id: id }, updateTrainerDto);
     }
 
     async delete(id): Promise<String>{
-        const postdelete = this.trainerModel.deleteOne({_id: id}).exec();
+        const postdelete = this.trainerModel.deleteOne({_id: id});
         if ((await postdelete).deletedCount == 1){
             return`The trainer with _id : ${id} has been ultimately deleted`;
         }
