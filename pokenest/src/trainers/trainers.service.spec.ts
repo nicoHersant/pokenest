@@ -1,17 +1,19 @@
 import {TrainersService} from "./trainers.service";
 import { Model } from 'mongoose';
 import {Trainer} from "../schemas/trainers.schema";
-import exp from "constants";
+import { BoxesService } from "src/boxes/boxes.service";
 
 
 describe('TrainersService', () =>{
     let trainersService: TrainersService;
     let trainersModel: Model<Trainer>;
+    let boxesService: BoxesService;
 
     beforeEach(() =>{
+        boxesService = { findAll: jest.fn(), numBox: jest.fn() } as any
         trainersModel = {create: jest.fn(), find: jest.fn(), findOne: jest.fn(), update: jest.fn(),
             deleteOne: jest.fn()} as any
-        trainersService = new TrainersService(trainersModel);
+        trainersService = new TrainersService(trainersModel, boxesService);
     });
 
     describe('findAll', () =>{
@@ -34,7 +36,7 @@ describe('TrainersService', () =>{
         it('should return a created trainer', async () =>{
             const result = [{"name": "test"}];
             (trainersModel.create as any).mockResolvedValue(result);
-            expect(await trainersService.create({"name": "test", boxNumber:0, "boxes": [{}]})).toBe(result);
+            expect(await trainersService.create({"name": "test", boxNumber:0 })).toBe(result);
         });
     });
 
@@ -43,7 +45,7 @@ describe('TrainersService', () =>{
             const result = [{"_id":"5eff04c58910a64424bf4359"}];
             (trainersModel.update as any).mockResolvedValue(result);
             expect(await trainersService.update("5eff04c58910a64424bf4359",
-                {"name":"nicoh", boxNumber:0, "boxes": [{}]})).toBe(result);
+                {"name":"nicoh", boxNumber:0})).toBe(result);
         });
     });
 
@@ -54,4 +56,13 @@ describe('TrainersService', () =>{
             expect(await trainersService.delete(result));
         });
     });
+    /*
+    describe('removeBox', () => {
+        it('should return an array of removed boxes', async () => {
+            const result = ["5eff04c58910a64424bf4359" ];
+            (trainersModel.deleteOne as any).mockResolvedValue(result);
+            expect(await trainersService.removeBox("nicoh")).toBe(result);
+        });
+    });
+    */
 })

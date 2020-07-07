@@ -39,36 +39,15 @@ export class TrainersService {
         }
     }
 
-    async addBox(trainerID:string, boxID:string): Promise<Trainer>{
-
+    async removeBox(name:string): Promise<any> {
+        const boxesToDelete = await this.boxesService.numBox(name)  
+        const boxesDeleted = [];
+        boxesToDelete.forEach(element => {
+            boxesDeleted.push(element._id)
+            this.boxesService.delete(element._id)
+        });    
+        return boxesDeleted;
     }
 
-    /*async addPokemon(boxID: string, pokemonID: string): Promise<Box>{
-        const toUpdateBox = await this.findOne(boxID);
-        const toUpdatePokemon = await this.pokemonService.findOne(pokemonID);
-        let notHere = await this.notInBox(toUpdateBox, toUpdatePokemon)
-        if ((toUpdateBox.pokemons.length < 24) && notHere ) {
-            if ( await this.setBoxType(toUpdateBox, toUpdatePokemon) == true ){
-                // Add pokemon to the array of pokemons in the box entity
-                toUpdateBox.pokemons.push(toUpdatePokemon) ;
-                // Add the id of box in the pokemon entity
-                await this.pokemonService.updateBox(pokemonID, { boxId: boxID });
-                return this.boxModel.update({ _id: toUpdateBox._id }, toUpdateBox);
-            } else {
-                console.log(`Sorry, the box is only for types ${toUpdateBox.type1} and ${toUpdateBox.type2}`);
-            }
-        }
-        if ( !notHere ){
-            console.log("Sorry, the pokemon is allready in the box or the box is full.");
-        }
-    }*/
 
-    /*async removePokemon(boxID: string, pokemonID: string): Promise<Box> {
-        const toUpdateBox = await this.findOne(boxID);
-        // Remove pokemon from the array of pokemons in the box entity
-        toUpdateBox.pokemons.forEach((pokemon, index) => {
-            if(pokemon["_id"] == pokemonID.toString()){
-                toUpdateBox.pokemons.splice(index)
-            }
-        });*/
 }

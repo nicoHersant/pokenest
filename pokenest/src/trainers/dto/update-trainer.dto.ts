@@ -11,8 +11,4 @@ export class UpdateTrainerDto {
     })
     boxNumber: number;
 
-    @ApiProperty({
-        description: 'Array of boxes linked to the trainer'
-    })
-    boxes: Array<{}>;
 }

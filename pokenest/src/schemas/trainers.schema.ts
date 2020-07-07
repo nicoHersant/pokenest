@@ -7,10 +7,8 @@ export class Trainer extends Document{
     readonly name: string;
 
     @Prop()
-    readonly boxNumber: number;
+    boxNumber: number;
 
-    @Prop()
-    boxes: Array<{}>;
 }
 
 export const TrainerSchema = SchemaFactory.createForClass(Trainer);
