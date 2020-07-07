@@ -40,6 +40,14 @@ describe('BoxesController', () => {
         });
     });
 
+    describe('delete', () => {
+        it('should return a boxe', async () => {
+            const result = [{ "_id": "5eff37917ecb9c7a422f0801" }];
+            (await boxesService.delete as any).mockResolvedValue(result)
+            expect(await boxesController.remove('5eff37917ecb9c7a422f0801')).toBe(result);
+        });
+    });
+
     describe('create', () => {
         it('should return a new box', async () => {
             const result = [{ "trainer": "Full"}];
