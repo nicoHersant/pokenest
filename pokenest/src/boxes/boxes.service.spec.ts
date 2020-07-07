@@ -34,14 +34,14 @@ describe('BoxesService', () => {
             expect(await boxesService.findOne("5eff37917ecb9c7a422f0801")).toBe(result)
         });
     });
-/*
+
     describe('create', () => {
         it('should return a new box', async () => {
             const result = [{ "_id": "test" }];
             (boxesModel.create as any).mockResolvedValue(result)
             expect(await boxesService.create({
                 "trainer": "mew",
-                "boxNumber": getRandomInt(99),
+                "boxNumber": getRandomInt(100),
                 "type1": "Off",
                 "type2": "Awesomeness",
                 "pokemons": [{}]
@@ -70,5 +70,5 @@ describe('BoxesService', () => {
             })).toBe(result);
         });
     });
-*/
+
 })

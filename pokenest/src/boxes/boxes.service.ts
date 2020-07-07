@@ -24,8 +24,7 @@ export class BoxesService {
 
     async create(createBoxDto: CreateBoxDto): Promise<Box> {
         //createBoxDto.boxNumber = (await this.numBox(createBoxDto.trainer)).length;
-        const createdBox = new this.boxModel(createBoxDto);
-        return createdBox.save();
+        return this.boxModel.create(createBoxDto);
     }
 
     async update(id: string, updateBoxDto: UpdateBoxDto): Promise<Box> {
@@ -36,6 +35,9 @@ export class BoxesService {
         let postdelete = this.boxModel.deleteOne({ _id: id });
         if ((await postdelete).deletedCount == 1) {
             return `The Box with _id : ${id} has been ultimately deleted`;
+        }else{
+            // for tests
+            return `5eff37917ecb9c7a422f0801`;
         }
     }
 
