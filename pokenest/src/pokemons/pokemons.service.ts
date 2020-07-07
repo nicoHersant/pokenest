@@ -11,7 +11,7 @@ import { MovePokemonDto } from "./dto/move-pokemon.dto";
 export class PokemonsService {
 
     constructor(
-        @InjectModel(Pokemon.name) private pokemonModel: Model<Pokemon>, 
+        @InjectModel(Pokemon.name) private pokemonModel: Model<Pokemon>,
         @Inject(forwardRef(() => BoxesService)) private boxesService: BoxesService
     ) { }
 
@@ -36,8 +36,8 @@ export class PokemonsService {
     }
 
     async delete(id): Promise<String> {
-        let poke = await this.findOne(id)
-        console.log(this.boxesService.removePokemon((await poke).boxId, id))
+        let poke = await this.findOne(id);
+        console.log(this.boxesService.removePokemon((await poke).boxId, id));
         let postdelete = this.pokemonModel.deleteOne({ _id: id }).exec();
         if ((await postdelete).deletedCount == 1){
             return `The pokemon with _id : ${id} has been ultimately deleted`;
