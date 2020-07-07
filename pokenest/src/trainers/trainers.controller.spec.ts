@@ -23,7 +23,6 @@ describe('TrainersController', () => {
             expect(await trainersController.findAll()).toBe(result);
         })
     })
-    /*
 
     describe('findOne', () =>{
         it('should return one trainer', async () => {
@@ -57,5 +56,5 @@ describe('TrainersController', () => {
             expect(await trainersController.remove("5eff04c58910a64424bf4359")).toBe(result);
         });
     })
-    */
+    
 });
