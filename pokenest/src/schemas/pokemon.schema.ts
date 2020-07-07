@@ -11,7 +11,7 @@ export class Pokemon extends Document {
     readonly type: string;
 
     @Prop()
-    boxId: string;
+    readonly boxId: string;
 }
 
 export const PokemonSchema = SchemaFactory.createForClass(Pokemon);

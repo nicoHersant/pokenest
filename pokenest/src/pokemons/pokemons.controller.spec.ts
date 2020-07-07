@@ -38,13 +38,10 @@ describe('PokemonsController', () => {
 
     describe('create', () => {
         it('should return a new pokemon', async () => {
-            const result =
-                [
-                    {
+            const result = [{
                         "name": "test",
                         "type": "test"
-                    }
-                ];
+                    }];
             (pokemonsService.create as any).mockResolvedValue(result);
             expect(await pokemonsController.create({
                 "name": "test",
@@ -75,7 +72,7 @@ describe('PokemonsController', () => {
     });
 
     describe('remove', () => {
-        it('should return the deleted pokemon', async () => {
+        it('should return the deleted pokemon ID', async () => {
             const result = [{ "id": "test" }];
             (pokemonsService.delete as any).mockResolvedValue(result);
             expect(await pokemonsController.remove('test')).toBe(result);

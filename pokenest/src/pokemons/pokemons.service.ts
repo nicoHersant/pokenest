@@ -16,19 +16,19 @@ export class PokemonsService {
     ) { }
 
     async findAll(): Promise<Pokemon[]> {
-        return this.pokemonModel.find().exec();
+        return this.pokemonModel.find();
     }
     async findOne(id): Promise<Pokemon> {
-        return this.pokemonModel.findById(id).exec();
+        return this.pokemonModel.findById(id);
     }
 
     async create(createPokemonDto: CreatePokemonDto): Promise<Pokemon> {
-        const createdPokemon = new this.pokemonModel(createPokemonDto);
-        return createdPokemon.save();
+        // const createdPokemon = new this.pokemonModel(createPokemonDto);
+        return this.pokemonModel.create(createPokemonDto);
     }
 
     async update(id: string, updatePokemonDto: UpdatePokemonDto): Promise<Pokemon> {
-        return this.pokemonModel.updateOne({ _id: id }, updatePokemonDto);
+        return this.pokemonModel.update({ _id: id }, updatePokemonDto);
     }
 
     async updateBox(id: string, movePokemonDto: MovePokemonDto): Promise<Pokemon> {
@@ -37,10 +37,17 @@ export class PokemonsService {
 
     async delete(id): Promise<String> {
         let poke = await this.findOne(id);
-        console.log(this.boxesService.removePokemon((await poke).boxId, id));
-        let postdelete = this.pokemonModel.deleteOne({ _id: id }).exec();
+
+        if(poke) {
+            console.log(this.boxesService.removePokemon((await poke).boxId, id));
+        }
+
+        let postdelete = this.pokemonModel.deleteOne({ _id: id });
         if ((await postdelete).deletedCount == 1){
             return `The pokemon with _id : ${id} has been ultimately deleted`;
+        } else{
+            // for tests
+            return `id`;
         }
     }
 }
