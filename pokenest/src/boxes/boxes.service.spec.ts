@@ -15,7 +15,7 @@ describe('BoxesService', () => {
 
     beforeEach(() => {
         pokemonService = { findAll: jest.fn() } as any
-        boxesModel = { find: jest.fn(), findById: jest.fn(), updateOne: jest.fn(), deleteOne: jest.fn() } as any
+        boxesModel = { find: jest.fn(), findById: jest.fn(), create: jest.fn(), updateOne: jest.fn(), deleteOne: jest.fn()} as any
         boxesService = new BoxesService(boxesModel, pokemonService);
     });
 
@@ -34,13 +34,13 @@ describe('BoxesService', () => {
             expect(await boxesService.findOne("5eff37917ecb9c7a422f0801")).toBe(result)
         });
     });
-/*
+
     describe('create', () => {
         it('should return a new box', async () => {
             const result = [{ "_id": "test" }];
-            (new boxesModel({ "trainer":"Full"}) as any).mockResolvedValue(result)
+            (boxesModel.create as any).mockResolvedValue(result)
             expect(await boxesService.create({
-                "trainer": "Full",
+                "trainer": "mew",
                 "boxNumber": getRandomInt(99),
                 "type1": "Off",
                 "type2": "Awesomeness",
@@ -52,7 +52,7 @@ describe('BoxesService', () => {
     describe('delete', () => {
         it('should return a string containing deleted box ID', async () => {
             const result = "5eff37917ecb9c7a422f0801";
-            (await boxesModel.deleteOne("5eff37917ecb9c7a422f0801") as any).mockResolvedValue(result)
+            (await boxesModel.deleteOne({ _id: "5eff37917ecb9c7a422f0801" }) as any).mockResolvedValue(result)
             expect(await boxesService.delete('5eff37917ecb9c7a422f0801')).toBe(result);
         });
     });
@@ -70,5 +70,5 @@ describe('BoxesService', () => {
             })).toBe(result);
         });
     });
-*/
+
 })

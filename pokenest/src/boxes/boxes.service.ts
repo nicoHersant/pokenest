@@ -19,7 +19,7 @@ export class BoxesService {
         return this.boxModel.find();
     }
     async findOne(id): Promise<Box> {
-        return this.boxModel.findById(id).exec();
+        return this.boxModel.findById(id);
     }
 
     async create(createBoxDto: CreateBoxDto): Promise<Box> {
@@ -33,14 +33,14 @@ export class BoxesService {
     }
 
     async delete(id): Promise<String> {
-        let postdelete = this.boxModel.deleteOne({ _id: id }).exec();
+        let postdelete = this.boxModel.deleteOne({ _id: id });
         if ((await postdelete).deletedCount == 1) {
             return `The Box with _id : ${id} has been ultimately deleted`;
         }
     }
 
     async numBox(name){
-        return this.boxModel.find({ trainer: name}).exec();
+        return this.boxModel.find({ trainer: name});
     }
 
     async addPokemon(boxID: string, pokemonID: string): Promise<Box>{
