@@ -28,7 +28,7 @@ export class BoxesService {
     }
 
     async update(id: string, updateBoxDto: UpdateBoxDto): Promise<Box> {
-        return this.boxModel.updateOne({ _id: id }, updateBoxDto);
+        return this.boxModel.update({ _id: id }, updateBoxDto);
     }
 
     async delete(id): Promise<String> {
@@ -55,7 +55,7 @@ export class BoxesService {
                 toUpdateBox.pokemons.push(toUpdatePokemon) ;
                 // Add the id of box in the pokemon entity
                 await this.pokemonService.updateBox(pokemonID, { boxId: boxID });
-                return this.boxModel.updateOne({ _id: toUpdateBox._id }, toUpdateBox);
+                return this.boxModel.update({ _id: toUpdateBox._id }, toUpdateBox);
             } else {
                 console.log(`Sorry, the box is only for types ${toUpdateBox.type1} and ${toUpdateBox.type2}`);
             }
@@ -87,7 +87,7 @@ export class BoxesService {
         this.cleanType(toUpdateBox._id)
         // Empty the field boxId in the pokemon entity
         await this.pokemonService.updateBox(pokemonID, {boxId: ""});
-        return this.boxModel.updateOne({ _id: toUpdateBox._id }, toUpdateBox);
+        return this.boxModel.update({ _id: toUpdateBox._id }, toUpdateBox);
     }
 
     async setBoxType(box: Box, poke: Pokemon) {

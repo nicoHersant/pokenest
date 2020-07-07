@@ -15,7 +15,7 @@ describe('BoxesService', () => {
 
     beforeEach(() => {
         pokemonService = { findAll: jest.fn() } as any
-        boxesModel = { find: jest.fn(), findById: jest.fn(), create: jest.fn(), updateOne: jest.fn(), deleteOne: jest.fn()} as any
+        boxesModel = { find: jest.fn(), findById: jest.fn(), create: jest.fn(), update: jest.fn(), deleteOne: jest.fn()} as any
         boxesService = new BoxesService(boxesModel, pokemonService);
     });
 
@@ -60,7 +60,7 @@ describe('BoxesService', () => {
     describe('update', () => {
         it('should return an updated box', async () => {
             const result = [{ "_id": "5eff37917ecb9c7a422f0801" }];
-            (boxesModel.update as any).mockResolvedValue(result)
+            (await boxesModel.update as any).mockResolvedValue(result)
             expect(await boxesService.update('5eff37917ecb9c7a422f0801', {
                 "trainer": "Full",
                 "boxNumber": getRandomInt(99),
