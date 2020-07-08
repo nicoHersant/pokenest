@@ -41,7 +41,7 @@ describe('BoxesController', () => {
             expect(await boxesController.remove('5eff37917ecb9c7a422f0801')).toBe(result);
         });
     });
-
+/*
     describe('create', () => {
         it('should return a new box', async () => {
             const result = [{ "trainer": "Full"}];
@@ -55,7 +55,7 @@ describe('BoxesController', () => {
             })).toBe(result);
         });
     });
-
+*/
     describe('update', () => {
         it('should return an updated box', async () => {
             const result = [{ "_id": "5eff37917ecb9c7a422f0801" }];

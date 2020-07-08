@@ -23,7 +23,7 @@ export class BoxesService {
     }
 
     async create(createBoxDto: CreateBoxDto): Promise<Box> {
-        //createBoxDto.boxNumber = (await this.numBox(createBoxDto.trainer)).length;
+        createBoxDto.boxNumber = (await this.numBox(createBoxDto.trainer)).length;
         return this.boxModel.create(createBoxDto);
     }
 

@@ -12,8 +12,7 @@ import {BoxesService} from "../boxes/boxes.service";
 @Injectable()
 export class TrainersService {
     constructor(
-        @InjectModel(Trainer.name) private trainerModel: Model<Trainer>,
-        @Inject(forwardRef(() => BoxesService)) private boxesService: BoxesService
+        @InjectModel(Trainer.name) private trainerModel: Model<Trainer>, private boxesService: BoxesService
     ){}
 
     async create( createTrainerDto: CreateTrainerDto): Promise<Trainer>{
@@ -35,7 +34,9 @@ export class TrainersService {
     async delete(id): Promise<String>{
         const postdelete = this.trainerModel.deleteOne({_id: id});
         if ((await postdelete).deletedCount == 1){
-            return`The trainer with _id : ${id} has been ultimately deleted`;
+            return `The trainer with _id : ${id} has been ultimately deleted`;
+        }else{
+            return `no return`;
         }
     }
 
@@ -43,8 +44,9 @@ export class TrainersService {
         const boxesToDelete = await this.boxesService.numBox(name)  
         const boxesDeleted = [];
         boxesToDelete.forEach(element => {
-            boxesDeleted.push(element._id)
-            this.boxesService.delete(element._id)
+            boxesDeleted.push(element._id);
+            console.log(element._id)
+            this.boxesService.delete(element._id);
         });    
         return boxesDeleted;
     }

@@ -10,7 +10,7 @@ describe('TrainersService', () =>{
     let boxesService: BoxesService;
 
     beforeEach(() =>{
-        boxesService = { findAll: jest.fn(), numBox: jest.fn() } as any
+        boxesService = { findAll: jest.fn(), numBox: jest.fn(), delete: jest.fn() } as any
         trainersModel = {create: jest.fn(), find: jest.fn(), findOne: jest.fn(), update: jest.fn(),
             deleteOne: jest.fn()} as any
         trainersService = new TrainersService(trainersModel, boxesService);
@@ -60,7 +60,7 @@ describe('TrainersService', () =>{
     describe('removeBox', () => {
         it('should return an array of removed boxes', async () => {
             const result = ["5eff04c58910a64424bf4359" ];
-            (trainersModel.deleteOne as any).mockResolvedValue(result);
+            (boxesService.delete as any).mockResolvedValue(result);
             expect(await trainersService.removeBox("nicoh")).toBe(result);
         });
     });
