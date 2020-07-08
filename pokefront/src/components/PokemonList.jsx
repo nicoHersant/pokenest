@@ -6,10 +6,11 @@ const PokemonList = () => {
   const [pokemons, setPokemons] = useState([]);
   const [next, setNext] = useState(undefined);
   const [previous, setPrevious] = useState(undefined);
-  const [url, setUrl] = useState('https://pokeapi.co/api/v2/pokemon')
+  const [url, setUrl] = useState('http://localhost:3030/pokemons')
 
   useEffect(() => {
     axios.get(url).then(({ data: { results, next, previous } }) => {
+      console.log(results)
       setPokemons(results)
       setNext(next)
       setPrevious(previous)
