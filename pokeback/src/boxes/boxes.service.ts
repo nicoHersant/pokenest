@@ -28,7 +28,7 @@ export class BoxesService {
     }
 
     async update(id: string, updateBoxDto: UpdateBoxDto): Promise<Box> {
-        return this.boxModel.update({ _id: id }, updateBoxDto);
+        return this.boxModel.updateOne({ _id: id }, updateBoxDto);
     }
 
     async delete(id): Promise<String> {
@@ -46,16 +46,17 @@ export class BoxesService {
     }
 
     async addPokemon(boxID: string, pokemonID: string): Promise<Box>{
-        const toUpdateBox = await this.findOne(boxID);
+        const toUpdateBox = await this.cleanType(await this.findOne(boxID));
         const toUpdatePokemon = await this.pokemonService.findOne(pokemonID);
         let notHere = await this.notInBox(toUpdateBox, toUpdatePokemon)
+
         if ((toUpdateBox.pokemons.length < 24) && notHere ) {
             if (await this.setBoxType(toUpdateBox, toUpdatePokemon.types[0]) == true && await this.setBoxType(toUpdateBox, toUpdatePokemon.types[1]) == true){
                 // Add pokemon to the array of pokemons in the box entity
                 toUpdateBox.pokemons.push(toUpdatePokemon) ;
                 // Add the id of box in the pokemon entity
                 await this.pokemonService.updateBox(pokemonID, { boxId: boxID });
-                return this.boxModel.update({ _id: toUpdateBox._id }, toUpdateBox);
+                return this.boxModel.updateOne({ _id: toUpdateBox._id }, toUpdateBox);
             } else {
                 console.log(`Sorry, the box is only for types ${toUpdateBox.type1} and ${toUpdateBox.type2}`);
             }
@@ -84,34 +85,37 @@ export class BoxesService {
             }
         });
         // Remove Box's types if the are not usefull anymore
-        this.cleanType(toUpdateBox._id)
+        this.cleanType(toUpdateBox)
         // Empty the field boxId in the pokemon entity
         await this.pokemonService.updateBox(pokemonID, {boxId: ""});
-        return this.boxModel.update({ _id: toUpdateBox._id }, toUpdateBox);
+        return this.boxModel.updateOne({ _id: toUpdateBox._id }, toUpdateBox);
     }
 
     async setBoxType(box: Box, poketype) {
+        if ( poketype == undefined ){ return true; }        
         if ( box.type1 === undefined ){
-            box.type1 = poketype
-            box.save()
+            box.type1 = poketype;
+            this.boxModel.updateOne({ _id: box._id }, box)
             return true
         }
         if (box.type1 != undefined && box.type1 == poketype ) {
             return true
-        }else if(box.type2 === undefined) {
-            box.type2 = poketype
-            box.save()
+        }
+        if (box.type1 != undefined && box.type1 != poketype && box.type2 === undefined) {
+            box.type2 = poketype;
+            this.boxModel.updateOne({ _id: box._id }, box)
             return true
         }
-        if (box.type1 == poketype || box.type2 == poketype){ return true }
-        if ( box.type1 !== poketype && box.type2 !== poketype) { return false }
+        if (box.type1 == poketype || box.type2 == poketype) { return true }
+        if (box.type1 !== poketype && box.type2 !== poketype) { return false }
     }
 
     async cleanType(box: Box): Promise<Box>{
         let types = [];
         let typesIn = [];
         box.pokemons.forEach(element => {
-            types.push(element["type"])
+            if(element["types"][0] != undefined){ types.push(element["types"][0]) }
+            if(element["types"][1] != undefined){ types.push(element["types"][1]) }
             const temp = new Set(types)
             typesIn = [... temp]
         });

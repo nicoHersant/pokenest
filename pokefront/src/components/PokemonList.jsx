@@ -4,16 +4,18 @@ import './PokemonList.css'
 
 const PokemonList = () => {
   const [pokemons, setPokemons] = useState([]);
-  const [next, setNext] = useState(undefined);
-  const [previous, setPrevious] = useState(undefined);
+  //const [next, setNext] = useState(undefined);
+  //const [previous, setPrevious] = useState(undefined);
   const [url, setUrl] = useState('http://localhost:3030/pokemons')
 
   useEffect(() => {
-    axios.get(url).then(({ data: { results, next, previous } }) => {
-      console.log(results)
-      setPokemons(results)
-      setNext(next)
-      setPrevious(previous)
+    axios.get(url).then((response) => {
+      console.log(response)
+      setPokemons(response.data)
+      //setNext(next)
+      //setPrevious(previous)
+    }).catch(function (error) {
+      console.log(error);
     })
   }, [url])
 
@@ -24,10 +26,7 @@ const PokemonList = () => {
           <li key={pkmn.name}>{pkmn.name}</li>
         ))}
       </ul>
-      <div style={{ display: 'inline' }}>
-        <button disabled={!previous} onClick={() => setUrl(previous)}>⬅️ Previous</button>
-        <button disabled={!next} onClick={() => setUrl(next)}>Next ➡️</button>
-      </div>
+
     </div>
 
   );
