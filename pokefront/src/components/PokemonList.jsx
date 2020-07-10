@@ -37,7 +37,6 @@ const PokemonList = (props) => {
         refresh && axios.get(url).then(function (response) {
             setPokemons(response.data);
             setRefreshing(false);
-            console.log("patate")
         }).catch(function (error) {
             console.log(error);
         });
@@ -48,6 +47,9 @@ const PokemonList = (props) => {
         <div className="content-list-container">
             { creating ?
                 <form className="form-creating" onSubmit={createPokemon}>
+
+                    <h2>Create a new pokemon :</h2>
+
                     <label htmlFor="name">Name of the pokemon *</label>
                     <input type="text" id="name" required="required"/>
 
@@ -102,9 +104,8 @@ const PokemonList = (props) => {
                     <div className="form-creating-actions">
                         <input type="submit" value="Save" className="form-creating-actions-save"/>
                         <button className="form-creating-actions-cancel" onClick={() => setIsCreating(false)}>Cancel</button>
+                        <p>* Mandatory</p>
                     </div>
-
-                    <p>* Mandatory</p>
 
                 </form>
                 : <button className="actions-create" onClick={() => setIsCreating(true)}>Create a new pokemon</button>
@@ -114,7 +115,8 @@ const PokemonList = (props) => {
                 {pokemons.map(pkmn => (
                     <li key={pkmn._id} data-url={pkmn.name}
                         onClick={() => props.setSelectedPokemon(pkmn._id)}
-                    >{pkmn.name}
+                    >
+                        <div>{pkmn.name}</div>
                     </li>
                 ))}
             </ul>
