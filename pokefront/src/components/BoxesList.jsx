@@ -44,7 +44,7 @@ const BoxesList = (props) => {
 
 
     return (
-        <div>
+        <div className="box">
             <div className="content-detail">
                 {trainers.map(trainer => (
                     <div className="container">
@@ -72,7 +72,7 @@ const BoxesList = (props) => {
                 </div>
 
             </div>
-            {props.boxSelected ? 
+            {props.boxSelected ?
                 <div className="content-detail">
                     <div className="update-button"><button onClick={() => console.log(props.boxSelected)}>Update a box</button></div>
                 </div>
