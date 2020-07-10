@@ -11,11 +11,12 @@ const BoxesList = (props) => {
     const [trainers, setTrainers] = useState([])
     const [trainerName, setTrainerName] = useState('nicoh')
     const [refresh, setRefresh] = useState(true)
+    const [creating, setIsCreating] = useState(false);
 
     useEffect(() => {
         refresh && axios.get(url+trainerName).then((response) => {
             setBoxes(response.data)
-            console.log(refresh)
+            //console.log(refresh)
         }).catch((error)=> {
             console.log(error)
         })
@@ -46,38 +47,49 @@ const BoxesList = (props) => {
     return (
         <div>
             <div className="content-detail">
-                {trainers.map(trainer => (
-                    <div className="container">
-                        <div key={trainer._id} className="trainer-button"><button className="btn-shine" onClick={() => setTrainerName(trainer.name)}>{trainer.name}</button></div>
-                        <div className='shine'></div>
+                {trainers.map((trainer, index) => (
+                    <div key={index - 1} className="shining-container">
+                        <div key={index} className="trainer-button">
+                            <button key={index+1} className="btn-shine" onClick={() => setTrainerName(trainer.name)}>{trainer.name}</button>
+                        </div>
+                        <div key={index+2} className='shine'></div>
                     </div>
                 ))}
             </div>
             <div className="content-detail content-detail-right">
 
                 <div className="create-button">
-                    <form className="form-creating" onSubmit={createBox}>
-                        <p>Create a new box</p>
-                        <label htmlFor="name">Name of the trainer *</label>
-                        <select id="name" defaultValue="">
-                            {trainers.map(trainer => (
-                                <option key={trainer._id} value={trainer.name}>{trainer.name}</option>
-                            ))}
-                        </select>
-                        <div className="form-creating-actions">
-                            <input type="submit" value="Save" className="form-creating-actions-save" />
-                        </div>
+                    {creating ?
+                        <form className="form-creating" onSubmit={createBox}>
+                            <p>Create a new box</p>
+                            <label htmlFor="name">Name of the trainer *</label>
+                            <select id="name" defaultValue="" required="required">
+                                {trainers.map((trainer, index) => (
+                                    <option key={index} value={trainer.name}>{trainer.name}</option>
+                                ))}
+                            </select>
+                            <div className="form-creating-actions">
+                                <input type="submit" value="Save" className="form-creating-actions-save" />
+                                <button className="form-creating-actions-cancel" onClick={() => setIsCreating(false)}>Close</button>
+                            </div>
 
-                    </form>
+                        </form>
+                        : 
+                        <div className="shining-container">
+                            <button className="actions-create btn-shine" onClick={() => setIsCreating(true)}>Create a new box</button>
+                            <div className='shine'></div>
+                        </div>
+                    }
                 </div>
 
             </div>
+
             {props.boxSelected ? 
                 <div className="content-detail">
-                    <div className="update-button"><button onClick={() => console.log(props.boxSelected)}>Update a box</button></div>
                 </div>
                 :<div></div>
             }
+
             <div className="boxesList">
                 {boxes.map(box => (
                     <div key={box._id}>< BoxDetail setBoxSelected={props.setBoxSelected} box_id={box._id} trainer={box.trainer} num={box.boxNumber} type1={box.type1} type2={box.type2} pokemons={box.pokemons} /></div>

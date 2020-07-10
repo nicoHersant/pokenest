@@ -20,11 +20,11 @@ const BoxDetail = (props) => {
                     <h1>{props.trainer}</h1>
                     <p> box n° : {props.num}</p>
                     <h3>{props.type1}, {props.type2}</h3>
-                    <p className="price">espace libre :  {24 - props.pokemons.length}</p>
+                    <p className="price">free slots :  {24 - props.pokemons.length}</p>
                 </div>
                 <div className="right">
                     <h2>{props.trainer},  box n° : {props.num}</h2>
-                    <div className="container">
+                    <div className="shining-container">
                         <button className="btn-shine" onClick={() => { if (window.confirm('Are you sure you wish to delete this item?')) deleteBox(props.box_id)}} >Remove</button>
                         <div className='shine'></div>
                         <button className="btn-shine" onClick={() => props.setBoxSelected(props.box_id)}>Edit</button>
