@@ -12,10 +12,32 @@
     padding: 20px;
 }
 
+.actions-update {
+    margin: 0 5px;
+    padding: 10px 30px;
+    color: #fff;
+    background-color: #28a745;
+    border-color: #28a745;
+}
+
+.actions-delete {
+    margin: 0 5px;
+    padding: 10px 30px;
+    color: #fff;
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
 /* LIST */
+.content-list-container {
+    padding: 40px 30px;
+}
+
 .content-list-pokemon {
     display: flex;
     flex-wrap: wrap;
+    margin: 50px 0 0 0;
+    padding: 0;
 }
 
 .content-list-pokemon li {
@@ -29,4 +51,30 @@
     color: white;
     list-style: none;
     cursor: pointer;
+}
+
+.actions-create {
+    display: block;
+    margin: 0 auto;
+    padding: 15px 40px;
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+/* FORM CREATE*/
+.form-creating-actions-save {
+    margin: 0 5px;
+    padding: 10px 30px;
+    color: #fff;
+    background-color: #28a745;
+    border-color: #28a745;
+}
+
+.form-creating-actions-cancel {
+    margin: 0 5px;
+    padding: 10px 30px;
+    color: #fff;
+    background-color: #dc3545;
+    border-color: #dc3545;
 }
