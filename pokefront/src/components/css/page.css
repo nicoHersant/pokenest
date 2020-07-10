@@ -6,9 +6,10 @@
 
 /* MENU */
 .menu-container {
+    position: fixed;
     padding: 20px;
+    width: 250px;
     height: 100vh;
-    min-width: 250px;
     background: black;
     color: white;
 }
@@ -20,5 +21,6 @@
 /* CONTENT */
 .content-container {
     width: 100%;
+    margin-left: 250px;
     background: white;
 }
