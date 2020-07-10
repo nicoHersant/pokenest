@@ -7,30 +7,36 @@ import "./components/css/basetheme.css"
 import "./components/css/page.css"
 
 function App() {
-    const [boxSelected, setBoxSelected] = useState('')
+    const [boxSelected, setBoxSelected] = useState('');
+    const [entitySelected, setEntitySelected] = useState('');
 
     return (
         <div className="App">
 
             <div className={"menu-container"}>
                 <h1>Pokemon API</h1>
-                <p>Pokemons</p>
-                <p>Boxes</p>
-                <p>Trainers</p>
+                <p onClick={() => setEntitySelected("pokemon")}>Pokemons</p>
+                <p onClick={() => setEntitySelected("box")}>Boxes</p>
+                <p onClick={() => setEntitySelected("trainer")}>Trainers</p>
             </div>
 
             <div className={"content-container"}>
-                <PokemonBloc/>
+                {entitySelected === "pokemon" ? <PokemonBloc/> : ""}
 
-                {/* A déplacer dans un composant "BoxBloc" si possible comme moi*/}
-                < div className="content">
-                    <div className="main">
-                        < BoxesList setBoxSelected={setBoxSelected}/>
-                    </div>
-                    <div className="detail">
-                        < BoxDetail boxSelected={boxSelected}/>
-                    </div>
-                </div>
+                {entitySelected === "box" ?
+                    < div className="content">
+                        <div className="main">
+                            < BoxesList setBoxSelected={setBoxSelected}/>
+                        </div>
+                        <div className="detail">
+                            < BoxDetail boxSelected={boxSelected}/>
+                        </div>
+                    </div> : ""
+                }
+
+
+                {/* Mettre les trainers dedans */}
+                {entitySelected === "trainer" ? "" : ""}
 
             </div>
 
