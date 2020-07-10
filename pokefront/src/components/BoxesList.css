@@ -1,0 +1,4 @@
+.boxesList {
+    display:flex;
+    flex-wrap:wrap;
+}

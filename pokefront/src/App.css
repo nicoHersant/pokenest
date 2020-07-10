@@ -25,14 +25,11 @@
   display: flex;
   min-height: 25vh;
   max-width: 25vh;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
 }
 .main{
   min-height: 25vh;
-}
-.detail {
-  min-height: 50vh;
 }
 
 .App-link {

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './BoxesList.css';
+import BoxDetail from './Box';
 
 const BoxesList = (props) => {
     const [boxes, setBoxes] = useState([]);
@@ -15,12 +16,12 @@ const BoxesList = (props) => {
     }, [url])
 
     return (
-        <div>
-            <ul className="boxesList">
-                {boxes.map(box => (
-                    <li key={box._id}><button onClick={() => props.setBoxSelected(box._id)} >{box.trainer}, boite n° : {box.boxNumber} </button></li>
-                ))}
-            </ul>
+        <div className="boxesList">
+            {boxes.map(box => (
+                <div key={box._id}>
+                    < BoxDetail box_id={box._id} trainer={box.trainer} num={box.boxNumber} type1={box.type1} type2={box.type2} pokemons={box.pokemons}/>
+                </div>
+            ))}
         </div>
     );
 }
