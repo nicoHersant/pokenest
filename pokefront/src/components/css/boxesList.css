@@ -9,15 +9,17 @@
     animation: fadeIn .5s cubic-bezier(0.390, 0.575, 0.565, 1.000) 1;
     padding: 40px 20px 20px 20px;
 }
-.content-detail {
+.box{
+    background: #424242;
+}
+.box .content-detail {
     display:flex;
     flex-wrap:wrap;
-    background: #424242;
     color:white;
     min-height: 80px;
     padding: 20px 20px 20px 20px;
 }
-.content-detail button {
+.box .content-detail button {
     padding: 10px 20px;
     border: none;
     box-shadow: none;
@@ -32,7 +34,7 @@
     cursor: pointer;
     box-shadow: 8px 5px 13px rgba(34, 34, 34, .08);
 }
-.content-detail-right{
+.box .content-detail-right{
     align-self: right ;
 }
 .form-creating{

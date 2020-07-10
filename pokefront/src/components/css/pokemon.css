@@ -1,4 +1,3 @@
-
 .pokemon {
     width: 100%;
 }
@@ -9,7 +8,9 @@
 }
 
 .content-detail-pokemon {
-    padding: 20px;
+    display: flex;
+    justify-content: center;
+    padding: 20px 0 30px;
 }
 
 .actions-update {
@@ -86,9 +87,19 @@
     margin: 0 10px;
 }
 
-.form-creating label {
+.form-updating {
+    width: 100%;
+    max-width: 500px;
+}
+
+.form-creating label,
+.form-updating label {
     display: block;
     margin-bottom: 5px;
+}
+
+.form-updating label {
+    color: white;
 }
 
 .form-creating input[type="text"], .form-creating select,
@@ -103,7 +114,8 @@
     border-radius: .25rem;
 }
 
-.form-creating-actions {
+.form-creating-actions,
+.form-updating-actions {
     max-width: 600px;
     display: flex;
     align-items: center;
@@ -121,8 +133,13 @@
     font-size: 16px;
 }
 
-.form-creating-actions p {
+.form-creating-actions p,
+.form-updating-actions p {
     margin: 0 0 0 auto;
+}
+
+.form-updating-actions p {
+    color: white;
 }
 
 .form-creating-actions-cancel,

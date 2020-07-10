@@ -45,7 +45,7 @@ const BoxesList = (props) => {
 
 
     return (
-        <div>
+        <div className="box">
             <div className="content-detail">
                 {trainers.map((trainer, index) => (
                     <div key={index - 1} className="shining-container">
@@ -90,7 +90,7 @@ const BoxesList = (props) => {
                 :<div></div>
             }
 
-            <div className="boxesList">
+            <div className="boxesList content-detail">
                 {boxes.map(box => (
                     <div key={box._id}>< BoxDetail setBoxSelected={props.setBoxSelected} box_id={box._id} trainer={box.trainer} num={box.boxNumber} type1={box.type1} type2={box.type2} pokemons={box.pokemons} /></div>
                 ))}
