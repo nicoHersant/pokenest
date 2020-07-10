@@ -1,35 +1,30 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import axios from 'axios';
-import './PokemonList.css'
 
-const PokemonList = () => {
-  const [pokemons, setPokemons] = useState([]);
-  const [next, setNext] = useState(undefined);
-  const [previous, setPrevious] = useState(undefined);
-  const [url, setUrl] = useState('http://localhost:3030/pokemons')
+const PokemonList = (props) => {
+    const [pokemons, setPokemons] = useState([]);
+    const [url, setUrl] = useState('http://localhost:3030/pokemons');
 
-  useEffect(() => {
-    axios.get(url).then(({ data: { results, next, previous } }) => {
-      console.log(results)
-      setPokemons(results)
-      setNext(next)
-      setPrevious(previous)
-    })
-  }, [url])
+    useEffect(() => {
+        axios.get(url).then(function (response) {
+            setPokemons(response.data)
+        }).catch(function (error) {
+            console.log(error);
+        });
 
-  return (
-    <div>
-      <ul className="pkmnList">
-        {pokemons.map(pkmn => (
-          <li key={pkmn.name}>{pkmn.name}</li>
-        ))}
-      </ul>
-      <div style={{ display: 'inline' }}>
-        <button disabled={!previous} onClick={() => setUrl(previous)}>⬅️ Previous</button>
-        <button disabled={!next} onClick={() => setUrl(next)}>Next ➡️</button>
-      </div>
-    </div>
+    }, [url]);
 
-  );
-}
+    return (
+        <div>
+            <ul className="content-list-pokemon">
+                {pokemons.map(pkmn => (
+                    <li key={pkmn._id} data-url={pkmn.name}
+                        onClick={() => props.setSelectedPokemon(pkmn._id)}
+                    >{pkmn.name}</li>
+                ))}
+            </ul>
+        </div>
+    );
+};
+
 export default PokemonList;

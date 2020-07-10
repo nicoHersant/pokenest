@@ -1,0 +1,31 @@
+
+.pokemon {
+    width: 100%;
+}
+
+/* DETAIL */
+.pokemon .content-detail {
+    background: #424242;
+}
+
+.content-detail-pokemon {
+    padding: 20px;
+}
+
+/* LIST */
+.content-list-pokemon {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.content-list-pokemon li {
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    height: 200px;
+    background: black;
+    color: white;
+    list-style: none;
+}

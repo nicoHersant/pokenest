@@ -1,34 +1,30 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import axios from "axios";
 
-const PokemonList = () => {
-    const [pokemons, setPokemons] = useState([]);
-    const [next, setNext] = useState(undefined);
-    const [previous, setPrevious] = useState(undefined);
-    const [url, setUrl] = useState('http://localhost:3030/pokemons');
+const Pokemon = (props) => {
+    const [pokemon, setPokemon] = useState({});
+    const [pokemonUrl, setPokemonUrl] = useState("http://localhost:3030/pokemons/");
 
     useEffect(() => {
-        axios.get(url).then(function (response) {
-            setPokemons(response.data)
-        }).catch(function (error) {
-            console.log(error);
-        });
+        axios.get("http://localhost:3030/pokemons/"+props.pokemonId).then((response) => {
+                setPokemon(response.data);
+        }).catch( (error)=> {
+                console.log(error);
+            });
+        }, [pokemonUrl, props]);
 
-    }, [url]);
-
-    return (
-        <div>
-            <ul className="pkmnList">
-                {pokemons.map(pkmn => (
-                    <li key={pkmn.name}>{pkmn.name}</li>
+    return pokemon ? (
+        <div className={"content-detail-pokemon"}>
+            <p>ID : {pokemon._id}</p>
+            <p>Name : {pokemon.name}</p>
+            <ul>
+                {pokemon.types && pokemon.types.map(type => (
+                    <li>{type}</li>
                 ))}
             </ul>
-            <div style={{ display: 'inline' }}>
-                <button disabled={!previous} onClick={() => setUrl(previous)}>⬅️ Previous</button>
-                <button disabled={!next} onClick={() => setUrl(next)}>Next ➡️</button>
-            </div>
-        </div>
 
-    );
+        </div>
+    ) : "Loading";
 };
-export default PokemonList;
+
+export default Pokemon;
