@@ -62,8 +62,14 @@
     border-color: #007bff;
 }
 
-/* FORM CREATE*/
-.form-creating-actions-save {
+/* FORM CREATE/UPDATE */
+.form-creating input[type="text"], .form-creating select,
+.form-updating input[type="text"], .form-updating select{
+    display: block;
+}
+
+.form-creating-actions-save,
+.form-updating-actions-save {
     margin: 0 5px;
     padding: 10px 30px;
     color: #fff;
@@ -71,7 +77,8 @@
     border-color: #28a745;
 }
 
-.form-creating-actions-cancel {
+.form-creating-actions-cancel,
+.form-updating-actions-cancel {
     margin: 0 5px;
     padding: 10px 30px;
     color: #fff;
