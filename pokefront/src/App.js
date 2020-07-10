@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 //import PokemonList from './components/PokemonList';
@@ -7,6 +7,8 @@ import BoxesList from './components/BoxesList';
 import BoxDetail from './components/Box';
 
 function App() {
+  const [boxSelected, setBoxSelected] = useState('')
+
   return (
     <div className="App">
       <header className="App-header">
@@ -14,10 +16,10 @@ function App() {
       </header>
       < div className = "content" >
         <div className="main">
-          < BoxesList />
+          < BoxesList setBoxSelected={setBoxSelected}/>
         </div>
         <div className="detail">
-          < BoxDetail />
+          < BoxDetail boxSelected={boxSelected}  />
         </div>
         
       </div>

@@ -50,7 +50,7 @@ export class BoxesService {
         const toUpdatePokemon = await this.pokemonService.findOne(pokemonID);
         let notHere = await this.notInBox(toUpdateBox, toUpdatePokemon)
 
-        if ((toUpdateBox.pokemons.length < 24) && notHere ) {
+        if (toUpdatePokemon.boxId == undefined && toUpdateBox.pokemons.length < 24 && notHere ) {
             if (await this.setBoxType(toUpdateBox, toUpdatePokemon.types[0]) == true && await this.setBoxType(toUpdateBox, toUpdatePokemon.types[1]) == true){
                 // Add pokemon to the array of pokemons in the box entity
                 toUpdateBox.pokemons.push(toUpdatePokemon) ;
