@@ -9,4 +9,4 @@ Groupe avec les membres suivants :
 
 <p>Nous avons arrêté le projet à la fin de la journée du 10/07.</p>
 <p>Nous sommes partis sur le projet pour beginner, étant tous trois débutants dans 
-ces technologies./p>
+ces technologies.</p>
