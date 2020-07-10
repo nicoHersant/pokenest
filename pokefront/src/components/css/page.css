@@ -13,6 +13,10 @@
     color: white;
 }
 
+.menu-container p {
+    cursor: pointer;
+}
+
 /* CONTENT */
 .content-container {
     width: 100%;
