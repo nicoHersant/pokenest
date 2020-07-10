@@ -1,0 +1,33 @@
+
+.trainer {
+    width: 100%;
+}
+
+/* DETAIL */
+.trainer .content-detail {
+    background: #424242;
+}
+
+.content-detail-trainer {
+    padding: 10px;
+
+}
+
+/* LIST */
+.content-list-trainer {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.content-list-trainer li {
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    height: 200px;
+    background: black;
+    color: white;
+    list-style: none;
+    cursor: pointer;
+}

@@ -24,7 +24,7 @@ export class TrainersService {
     }
 
     async findOne(id): Promise<Trainer> {
-        return this.trainerModel.findOne(id);
+        return this.trainerModel.findById(id);
     }
 
     async update(id: string, updateTrainerDto: UpdateTrainerDto): Promise<Trainer> {
@@ -41,13 +41,13 @@ export class TrainersService {
     }
 
     async removeBox(name:string): Promise<any> {
-        const boxesToDelete = await this.boxesService.numBox(name)  
+        const boxesToDelete = await this.boxesService.numBox(name)
         const boxesDeleted = [];
         boxesToDelete.forEach(element => {
             boxesDeleted.push(element._id);
             console.log(element._id)
             this.boxesService.delete(element._id);
-        });    
+        });
         return boxesDeleted;
     }
 

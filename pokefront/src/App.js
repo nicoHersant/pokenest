@@ -1,12 +1,14 @@
 import React, {useContext, useState} from 'react';
-import PokemonBloc from './components/PokemonBloc'
+import PokemonBloc from './components/PokemonBloc';
 import BoxesList from './components/BoxesList';
+import TrainerBloc from "./components/TrainerBloc";
 import "./components/css/basetheme.css"
 import "./components/css/page.css"
 
 function App() {
     const [boxSelected, setBoxSelected] = useState('');
     const [entitySelected, setEntitySelected] = useState('');
+    const [trainerSelected, setTrainerSelected] = useState('');
 
     return (
         <div className="App">
@@ -27,7 +29,8 @@ function App() {
                 }
 
                 {/* Mettre les trainers dedans */}
-                {entitySelected === "trainer" ? "" : ""}
+                {entitySelected === "trainer" ?
+                    <TrainerBloc trainerSelected={trainerSelected} setTrainerSelected={setTrainerSelected}/>: ""}
 
             </div>
 
