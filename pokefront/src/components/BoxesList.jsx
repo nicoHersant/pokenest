@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './BoxesList.css';
+import './css/boxesList.css';
 import BoxDetail from './Box';
 
 const BoxesList = (props) => {

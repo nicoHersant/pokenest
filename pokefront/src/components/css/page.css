@@ -1,0 +1,20 @@
+/* APP */
+.App {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* MENU */
+.menu-container {
+    padding: 20px;
+    height: 100vh;
+    min-width: 250px;
+    background: black;
+    color: white;
+}
+
+/* CONTENT */
+.content-container {
+    width: 100%;
+    background: white;
+}

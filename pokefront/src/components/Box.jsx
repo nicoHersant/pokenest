@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './Box.css';
+import './css/box.css';
 import pokeball from '../img/pokeball-open.png';
 
 const BoxDetail = (props) => {
