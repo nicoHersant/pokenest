@@ -11,4 +11,10 @@ export class UpdateTrainerDto {
     })
     boxNumber: number;
 
+    @ApiProperty({
+        description: 'The picture that represents the trainer'
+    })
+    imgTrainer: string;
+
+
 }

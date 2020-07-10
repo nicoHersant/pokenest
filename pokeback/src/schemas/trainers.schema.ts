@@ -9,6 +9,9 @@ export class Trainer extends Document{
     @Prop()
     boxNumber: number;
 
+    @Prop()
+    imgTrainer : string;
+
 }
 
 export const TrainerSchema = SchemaFactory.createForClass(Trainer);
