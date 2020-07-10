@@ -19,7 +19,7 @@ const Pokemon = (props) => {
             <p>Name : {pokemon.name}</p>
             <ul>
                 {pokemon.types && pokemon.types.map(type => (
-                    <li>{type}</li>
+                    <li key={type}>{type}</li>
                 ))}
             </ul>
 
