@@ -1,0 +1,23 @@
+.container {
+    position: relative;
+    overflow: hidden;
+}
+.container:hover .shine {
+    transform: skewX(20deg) translateX(300px);
+}
+
+.btn-shine {
+    transition: background .3s linear;
+}
+
+.shine {
+    position: absolute;
+    top: 0;
+    left: -130px;
+    height: 44px;
+    width: 40px;
+    background: rgba(255, 255, 255, 0.4);
+    transition: all .3s linear;
+    transform: skewX(20deg) translateX(0);
+    /* border-radius: 55px 55px 21px 55px; */
+}

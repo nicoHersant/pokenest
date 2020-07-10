@@ -49,7 +49,7 @@ export class BoxesService {
         const toUpdateBox = await this.cleanType(await this.findOne(boxID));
         const toUpdatePokemon = await this.pokemonService.findOne(pokemonID);
         let notHere = await this.notInBox(toUpdateBox, toUpdatePokemon)
-
+        if(toUpdatePokemon.boxId != undefined){console.log('The pokemon is allready in another box.')}
         if (toUpdatePokemon.boxId == undefined && toUpdateBox.pokemons.length < 24 && notHere ) {
             if (await this.setBoxType(toUpdateBox, toUpdatePokemon.types[0]) == true && await this.setBoxType(toUpdateBox, toUpdatePokemon.types[1]) == true){
                 // Add pokemon to the array of pokemons in the box entity

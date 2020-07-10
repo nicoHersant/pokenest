@@ -7,5 +7,20 @@
     font-family: 'Exo 2';
     font-weight: 300;
     animation: fadeIn .5s cubic-bezier(0.390, 0.575, 0.565, 1.000) 1;
+    padding: 40px 20px 20px 20px;
+}
+.content-detail {
+    display:flex;
+    flex-wrap:wrap;
+    background: #424242;
+    color:white;
+    min-height: 80px;
     padding: 20px 20px 20px 20px;
+}
+.content-detail-right{
+    align-self: right ;
+}
+.form-creating{
+    padding: 10px 10px 10px 10px;
+    border: solid 2px white;
 }
