@@ -9,9 +9,19 @@
     "axios": "^0.19.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-scripts": "3.4.1"
+    "react-scripts": "3.4.1",
+    "npm-watch": "^0.6.0"
+  },
+  "watch": {
+    "build": {
+      "patterns": [
+        "src"
+      ],
+      "extensions": "js,jsx,css,scss"
+    }
   },
   "scripts": {
+    "watch": "npm-watch",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
