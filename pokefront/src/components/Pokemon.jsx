@@ -14,7 +14,7 @@ const Pokemon = (props) => {
         }, [pokemonUrl, props]);
 
     return pokemon ? (
-        <div className={"content-detail-pokemon"}>
+        <div className="content-detail-pokemon">
             <p>ID : {pokemon._id}</p>
             <p>Name : {pokemon.name}</p>
             <ul>

@@ -20,7 +20,8 @@ const PokemonList = (props) => {
                 {pokemons.map(pkmn => (
                     <li key={pkmn._id} data-url={pkmn.name}
                         onClick={() => props.setSelectedPokemon(pkmn._id)}
-                    >{pkmn.name}</li>
+                    >{pkmn.name}
+                    </li>
                 ))}
             </ul>
         </div>
