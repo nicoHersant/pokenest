@@ -6,7 +6,7 @@ describe('PokemonsController', () => {
     let pokemonsService: PokemonsService;
 
     beforeEach(() => {
-        pokemonsService = { findAll: jest.fn(), findOne: jest.fn(), create: jest.fn(), update: jest.fn(), updateBox: jest.fn(), delete: jest.fn() } as any;
+        pokemonsService = { findAll: jest.fn(), findOne: jest.fn(), create: jest.fn(), update: jest.fn(), delete: jest.fn() } as any;
         pokemonsController = new PokemonsController(pokemonsService);
     });
 
@@ -45,7 +45,8 @@ describe('PokemonsController', () => {
             (pokemonsService.create as any).mockResolvedValue(result);
             expect(await pokemonsController.create({
                 "name": "test",
-                "types": ["test"]
+                "types": ["test"],
+                "boxId": ""
             })).toBe(result);
         });
     });
@@ -56,17 +57,8 @@ describe('PokemonsController', () => {
             (pokemonsService.update as any).mockResolvedValue(result);
             expect(await pokemonsController.update('test',{
                 "name": "test",
-                "types": ["test"]
-            })).toBe(result);
-        });
-    });
-
-    describe('updateBox', () => {
-        it('should return an updated pokemon', async () => {
-            const result = [{ "id": "test" }];
-            (pokemonsService.updateBox as any).mockResolvedValue(result);
-            expect(await pokemonsController.updateBox('test',{
-                "boxId": "test",
+                "types": ["test"],
+                "boxId": ""
             })).toBe(result);
         });
     });

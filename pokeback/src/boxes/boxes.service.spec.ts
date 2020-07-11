@@ -40,7 +40,7 @@ describe('BoxesService', () => {
             const result = [{ "_id": "test" }];
             (boxesModel.create as any).mockResolvedValue(result)
             expect(await boxesService.create({
-                "trainer": "mew",
+                "trainer": "Nicoh",
                 "boxNumber": getRandomInt(100),
                 "type1": "Off",
                 "type2": "Awesomeness",

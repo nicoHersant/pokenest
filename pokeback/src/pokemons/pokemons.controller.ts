@@ -2,7 +2,6 @@ import { Controller, Get, Query, Post, Body, Put, Param, Delete } from '@nestjs/
 import { ApiTags } from '@nestjs/swagger';
 import { CreatePokemonDto, } from './dto/create-pokemon.dto';
 import { UpdatePokemonDto } from "./dto/update-pokemon.dto";
-import { MovePokemonDto } from "./dto/move-pokemon.dto";
 import { PokemonsService } from './pokemons.service';
 
 @ApiTags('Pokemons')
@@ -27,10 +26,6 @@ export class PokemonsController {
     @Put(':id')
     update(@Param('id') id: string, @Body() updatePokemonDto: UpdatePokemonDto) {
         return this.pokemonsService.update(id, updatePokemonDto);
-    }
-    @Put(':id/move')
-    updateBox(@Param('id') id: string, @Body() movePokemonDto: MovePokemonDto) {
-        return this.pokemonsService.updateBox(id, movePokemonDto);
     }
 
     @Delete(':id')

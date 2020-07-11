@@ -77,6 +77,7 @@ const Pokemon = (props) => {
                                 <li key={type}>{type}</li>
                             ))}
                         </ul>
+                        <p>Box : {pokemon.boxId}</p>
                     </div>
                     <div className="gameboy-color-logo">
                         <span className="logo-gb">GAME BOY </span>
@@ -159,7 +160,7 @@ const Pokemon = (props) => {
 
                     : <div className="actions">
                         <button className="actions-update" onClick={() => setIsUpdating(true)}>Update</button>
-                        <button onClick={() => deletePokemon(pokemon._id)} className="actions-delete">Delete</button>
+                        <button onClick={() => { if (window.confirm('Are you sure you wish to delete this pokemon?')) deletePokemon(pokemon._id) } } className="actions-delete">Delete</button>
                     </div>
                 }
 

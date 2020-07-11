@@ -11,7 +11,7 @@ describe('TrainersService', () =>{
 
     beforeEach(() =>{
         boxesService = { findAll: jest.fn(), numBox: jest.fn(), delete: jest.fn() } as any
-        trainersModel = {create: jest.fn(), find: jest.fn(), findOne: jest.fn(), update: jest.fn(),
+        trainersModel = {create: jest.fn(), find: jest.fn(), findById: jest.fn(), update: jest.fn(),
             deleteOne: jest.fn()} as any
         trainersService = new TrainersService(trainersModel, boxesService);
     });
@@ -27,8 +27,8 @@ describe('TrainersService', () =>{
     describe('findOne', () =>{
         it('should return one trainer', async () =>{
             const result = [{"_id":"5eff04c58910a64424bf4359"}];
-            (trainersModel.findOne as any).mockResolvedValue(result);
-            expect(await trainersService.findOne(result)).toBe(result);
+            (trainersModel.findById as any).mockResolvedValue(result);
+            expect(await trainersService.findOne("5eff04c58910a64424bf4359")).toBe(result);
         });
     });
 

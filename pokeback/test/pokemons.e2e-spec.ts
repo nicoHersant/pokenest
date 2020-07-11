@@ -52,13 +52,6 @@ describe('Pokemons', () => {
             .expect(pokemonsService.update());
     });
 
-    it(`/PUT /pokemons/id/move`, () => {
-        return request(app.getHttpServer())
-            .put('/pokemons/id/move')
-            .expect(200)
-            .expect(pokemonsService.updateBox());
-    });
-
     it(`/DELETE /pokemons/id`, () => {
         return request(app.getHttpServer())
             .delete('/pokemons/id')

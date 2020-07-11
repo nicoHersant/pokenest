@@ -5,7 +5,6 @@ import { Pokemon } from '../schemas/pokemon.schema';
 import { BoxesService } from '../boxes/boxes.service';
 import { CreatePokemonDto } from './dto/create-pokemon.dto';
 import { UpdatePokemonDto } from "./dto/update-pokemon.dto";
-import { MovePokemonDto } from "./dto/move-pokemon.dto";
 
 @Injectable()
 export class PokemonsService {
@@ -23,7 +22,6 @@ export class PokemonsService {
     }
 
     async create(createPokemonDto: CreatePokemonDto): Promise<Pokemon> {
-        // const createdPokemon = new this.pokemonModel(createPokemonDto);
         return this.pokemonModel.create(createPokemonDto);
     }
 
@@ -31,14 +29,10 @@ export class PokemonsService {
         return this.pokemonModel.update({ _id: id }, updatePokemonDto);
     }
 
-    async updateBox(id: string, movePokemonDto: MovePokemonDto): Promise<Pokemon> {
-        return this.pokemonModel.updateOne({ _id: id }, movePokemonDto);
-    }
-
     async delete(id): Promise<String> {
         let poke = await this.findOne(id);
 
-        if(poke) {
+        if(poke.boxId) {
             console.log(this.boxesService.removePokemon((await poke).boxId, id));
         }
 

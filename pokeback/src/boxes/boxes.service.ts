@@ -23,12 +23,12 @@ export class BoxesService {
     }
 
     async create(createBoxDto: CreateBoxDto): Promise<Box> {
-        createBoxDto.boxNumber = (await this.numBox(createBoxDto.trainer)).length;
+        if(!createBoxDto.boxNumber){ createBoxDto.boxNumber = (await this.numBox(createBoxDto.trainer)).length+1;}
         return this.boxModel.create(createBoxDto);
     }
 
     async update(id: string, updateBoxDto: UpdateBoxDto): Promise<Box> {
-        return this.boxModel.updateOne({ _id: id }, updateBoxDto);
+        return this.boxModel.update({ _id: id }, updateBoxDto);
     }
 
     async delete(id): Promise<String> {
@@ -49,13 +49,16 @@ export class BoxesService {
         const toUpdateBox = await this.cleanType(await this.findOne(boxID));
         const toUpdatePokemon = await this.pokemonService.findOne(pokemonID);
         let notHere = await this.notInBox(toUpdateBox, toUpdatePokemon)
+        if (toUpdatePokemon.boxId == "") { toUpdatePokemon.boxId = undefined }
         if(toUpdatePokemon.boxId != undefined){console.log('The pokemon is allready in another box.')}
+
         if (toUpdatePokemon.boxId == undefined && toUpdateBox.pokemons.length < 24 && notHere ) {
             if (await this.setBoxType(toUpdateBox, toUpdatePokemon.types[0]) == true && await this.setBoxType(toUpdateBox, toUpdatePokemon.types[1]) == true){
                 // Add pokemon to the array of pokemons in the box entity
                 toUpdateBox.pokemons.push(toUpdatePokemon) ;
                 // Add the id of box in the pokemon entity
-                await this.pokemonService.updateBox(pokemonID, { boxId: boxID });
+                toUpdatePokemon.boxId = boxID;
+                await this.pokemonService.update(pokemonID, toUpdatePokemon);
                 return this.boxModel.updateOne({ _id: toUpdateBox._id }, toUpdateBox);
             } else {
                 console.log(`Sorry, the box is only for types ${toUpdateBox.type1} and ${toUpdateBox.type2}`);
@@ -87,7 +90,9 @@ export class BoxesService {
         // Remove Box's types if the are not usefull anymore
         this.cleanType(toUpdateBox)
         // Empty the field boxId in the pokemon entity
-        await this.pokemonService.updateBox(pokemonID, {boxId: ""});
+        const toUpdatePokemon = await this.pokemonService.findOne(pokemonID);
+        toUpdatePokemon.boxId = undefined;
+        await this.pokemonService.update(pokemonID, toUpdatePokemon);
         return this.boxModel.updateOne({ _id: toUpdateBox._id }, toUpdateBox);
     }
 

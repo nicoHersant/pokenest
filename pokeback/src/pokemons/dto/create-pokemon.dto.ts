@@ -10,4 +10,9 @@ export class CreatePokemonDto {
         description: 'Type of pokemon'
     })
     types: Array<{}>;
+
+    @ApiProperty({
+        description: 'Box of pokemon'
+    })
+    boxId: string;
 }

@@ -46,7 +46,8 @@ describe('PokemonsServices', () => {
             (pokemonModel.create as any).mockResolvedValue(result);
             expect(await pokemonsService.create({
                 "name": "test",
-                "types": ["test"]
+                "types": ["test"],
+                "boxId": ""
             })).toBe(result);
         });
     });
@@ -57,7 +58,8 @@ describe('PokemonsServices', () => {
             (await pokemonModel.update as any).mockResolvedValue(result);
             expect(await pokemonsService.update('test', {
                 "name": "test",
-                "types": ["test"]
+                "types": ["test"],
+                "boxId": ""
             })).toBe(result);
         });
     });
